@@ -7,6 +7,7 @@
 #include "Controller/TimberPlayerController.h"
 #include "WelcomeLetter.generated.h"
 
+class UButton;
 /**
  * 
  */
@@ -17,5 +18,8 @@ class TIMBERMVP_API UWelcomeLetter : public UUserWidget
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
-	ATimberPlayerController* DrPlayerController;
+	TObjectPtr<ATimberPlayerController> DrPlayerController;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (BindWidget))
+	TObjectPtr<UButton> CloseButton;
 };

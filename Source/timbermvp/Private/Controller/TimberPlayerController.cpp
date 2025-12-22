@@ -35,6 +35,10 @@ void ATimberPlayerController::BeginPlay()
 	MissionViewModelInstantiation();
 
 	TimberCharacter->HandlePlayerDeath_DelegateHandle.AddDynamic(this, &ATimberPlayerController::HandlePlayerDeath);
+	
+	//Calls the Widget Creation on the HUD, so there are no timing issues between the Begin Play functions of the Controller and the HUD.
+	//If no welcome message, remove this.
+	GetWorld()->GetTimerManager().SetTimerForNextTick(this, &ATimberPlayerController::ShowWelcomeMessage);
 }
 
 void ATimberPlayerController::PrepareInputSettings()
@@ -126,19 +130,32 @@ void ATimberPlayerController::SetupInputComponent()
 
 void ATimberPlayerController::EnableCursor()
 {
-	FRotator SavedControllerRotation = GetControlRotation();
-	
-	bShowMouseCursor = true;
-	if (TimberCharacter && TimberCharacter->CameraSpringArm)
+	GetWorld()->GetTimerManager().SetTimerForNextTick([this]()
 	{
-		TimberCharacter->CameraSpringArm->bUsePawnControlRotation = false;
-	}
+		//I had to move this here for some timing issue with the welcome message not  removing the cursor from the screen when calling this.
+		// Check if it causes any issues anywhere else.
+		bShowMouseCursor = true;
+		FInputModeGameAndUI InputMode;
+		SetInputMode(InputMode);
+		
+		if (TimberCharacter && TimberCharacter->CameraSpringArm)
+		{
+			TimberCharacter->CameraSpringArm->bUsePawnControlRotation = false;
+		}
+	});
+	
+	//TODO:: What is this for? 
+	FRotator SavedControllerRotation = GetControlRotation();
 	SetControlRotation(SavedControllerRotation);
 }
 
 void ATimberPlayerController::DisableCursor()
 {
 	bShowMouseCursor = false;
+	
+	FInputModeGameOnly InputMode;
+	SetInputMode(InputMode);
+	
 	if (TimberCharacter && TimberCharacter->CameraSpringArm)
 	{
 		TimberCharacter->CameraSpringArm->bUsePawnControlRotation = true;
@@ -564,12 +581,6 @@ void ATimberPlayerController::PlaceBuildingComponent(const FInputActionValue& Va
 	}
 }
 
-/*void ATimberPlayerController::HideBuildMenu(const FInputActionValue& Value)
-{
-	//Broadcast to HUD to Hide the Build Menu
-	ShouldHideBuildMenu.Broadcast();
-}*/
-
 void ATimberPlayerController::DeleteBuildingComponent(const FInputActionValue& Value)
 {
 	//TODO:: Add Progress like system where Pressing the E button will Delete if Held for 1 Full second. Show Progress Swirl.
@@ -770,6 +781,15 @@ void ATimberPlayerController::MissionViewModelInstantiation()
 			Context.ContextName = "MissionVM";
 			Collection->AddViewModelInstance(Context, MissionVM );
 		}
+	}
+}
+
+void ATimberPlayerController::ShowWelcomeMessage()
+{
+	ATimberHUDBase* HUD = Cast<ATimberHUDBase>(GetHUD());
+	if (HUD)
+	{
+		HUD->CreateWelcomeMessageWidget();
 	}
 }
 

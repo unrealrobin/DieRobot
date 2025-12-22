@@ -24,6 +24,7 @@ public:
 	
 	//void SeedaBinding();
 	virtual void BeginPlay() override;
+	void CreateWelcomeMessageWidget();
 
 	void InitializeWidgets();
 	

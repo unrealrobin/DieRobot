@@ -274,6 +274,8 @@ private:
 	FTimerHandle OnStartWaveEarlyCooldownTimerHandle;
 	bool bStartWaveEarlyIsOnCooldown = false;
 	
+	void ShowWelcomeMessage();
+	
 };
 
 

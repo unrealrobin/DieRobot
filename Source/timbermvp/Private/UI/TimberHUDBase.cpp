@@ -6,6 +6,7 @@
 #include "Blueprint/WidgetTree.h"
 #include "Character/TimberSeeda.h"
 #include "Character/Enemies/Boss/BossBase.h"
+#include "Components/Button.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameModes/TimberGameModeBase.h"
 #include "Subsystems/Wave/WaveGameInstanceSubsystem.h"
@@ -29,17 +30,41 @@ void ATimberHUDBase::BeginPlay()
 {
 	Super::BeginPlay();
 	//Setting Controller Owner
-	TimberPlayerController = Cast<ATimberPlayerController>(GetOwner());
-	
+	TimberPlayerController = Cast<ATimberPlayerController>(GetOwningPlayerController());
+	if (!TimberPlayerController) return;
 	InitializeWidgets();
 	CharacterAndControllerBindings();
 	GameModeBindings();
 	SeedaBindings();
-	
+	//CreateWelcomeMessageWidget();
+		
 	//Binding to Tutorial States
 	InitializeTutorialStateBinding();
 	HandleTutorialStateChanges(GetTutorialState());
-	BindToWaveSubsystem();
+	BindToWaveSubsystem();	
+	
+}
+
+void ATimberHUDBase::CreateWelcomeMessageWidget()
+{
+	WelcomeWidget = CreateVisibleWidget(WelcomeWidgetClass, 100);
+	if (WelcomeWidget)
+	{
+		if (TimberPlayerController)
+		{
+			TimberPlayerController->EnableCursor();
+			UWelcomeLetter* WelcomeLetter = Cast<UWelcomeLetter>(WelcomeWidget);
+			WelcomeLetter->DrPlayerController = TimberPlayerController;
+			if (WelcomeLetter && WelcomeLetter->CloseButton)
+			{
+				WelcomeLetter->CloseButton->SetFocus();
+			}
+			else
+			{
+				WelcomeLetter->SetFocus();
+			}
+		}
+	}
 }
 
 void ATimberHUDBase::InitializeWidgets()
@@ -57,18 +82,7 @@ void ATimberHUDBase::InitializeWidgets()
 	BossHealthBarWidget = CreateHiddenWidget(BossHealthBarWidgetClass, 2);
 	SettingsPanelWidget = CreateHiddenWidget(SettingsPanelWidgetClass, 10);
 	
-	//Welcome Widget - Dev Only
-	WelcomeWidget = CreateVisibleWidget(WelcomeWidgetClass, 100);
-	if (WelcomeWidget)
-	{
-		if (TimberPlayerController)
-		{
-			TimberPlayerController->EnableCursor();
-			UWelcomeLetter* WelcomeLetter = Cast<UWelcomeLetter>(WelcomeWidget);
-			WelcomeLetter->DrPlayerController = TimberPlayerController;
-			WelcomeLetter->SetFocus();
-		}
-	}
+	
 	
 }
 

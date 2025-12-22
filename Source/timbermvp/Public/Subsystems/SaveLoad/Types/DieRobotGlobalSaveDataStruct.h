@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
 #include "DieRobotGlobalSaveDataStruct.generated.h"
-// Used to Save Global Data for Player.*/
+// Used to Save Global Data for Player.
 
 USTRUCT(BlueprintType, meta=(scriptName="GlobalSaveDataStruct"))
 struct FDieRobotGlobalSaveDataStruct
@@ -26,7 +26,7 @@ struct FSaveSlotDataStruct
 	FGuid SlotGuid;
 
 	UPROPERTY()
-	int SlotCurrentWave;
+	int SlotCurrentWave = 0;
 
 	UPROPERTY();
 	FString LastTimeStamp;
