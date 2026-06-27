@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "BossBase.generated.h"
 
 UCLASS()
-class DIEROBOT_API ABossBase : public ATimberEnemyCharacter
+class DIEROBOT_API ABossBase : public ADieRobotEnemyCharacter
 {
 	GENERATED_BODY()
 

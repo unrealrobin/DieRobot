@@ -3,7 +3,7 @@
 
 #include "AI/Behavior/Tasks/Task_Drones_FireProjectiles.h"
 
-#include "AI/TimberAiControllerBase.h"
+#include "AI/DieRobotAiControllerBase.h"
 #include "Character/Enemies/FloaterDrones.h"
 
 UTask_Drones_FireProjectiles::UTask_Drones_FireProjectiles()
@@ -13,7 +13,7 @@ UTask_Drones_FireProjectiles::UTask_Drones_FireProjectiles()
 
 EBTNodeResult::Type UTask_Drones_FireProjectiles::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	ATimberAiControllerBase* DroneController = Cast<ATimberAiControllerBase>(OwnerComp.GetAIOwner());
+	ADieRobotAiControllerBase* DroneController = Cast<ADieRobotAiControllerBase>(OwnerComp.GetAIOwner());
 	if (!DroneController)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Task - Drones Fire Projectiles - Could not Cast to Controller."));

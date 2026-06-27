@@ -7,7 +7,7 @@
 #include "Components/Inventory/InventoryObject.h"
 #include "InventoryWidget.generated.h"
 
-class ATimberPlayableCharacter;
+class ADieRobotPlayableCharacter;
 /**
  * 
  */
@@ -30,5 +30,5 @@ public:
 	UInventoryObject* PlayerInventory = nullptr;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Player Inventory")
-	ATimberPlayableCharacter* PlayerCharacter;
+	ADieRobotPlayableCharacter* PlayerCharacter;
 };

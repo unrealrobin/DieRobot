@@ -3,12 +3,12 @@
 
 #include "Loot/LootUnique.h"
 
-#include "Character/TimberPlayableCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/Inventory/InventoryManagerComponent.h"
 
 
-class ATimberPlayableCharacter;
+class ADieRobotPlayableCharacter;
 // Sets default values
 ALootUnique::ALootUnique()
 {
@@ -37,7 +37,7 @@ void ALootUnique::HandleLootItemOverlap(
 {
 	Super::HandleLootItemOverlap(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 	//UE_LOG(LogTemp, Warning, TEXT("Overlapped Part"));
-	ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
 
 	if(PlayerCharacter)
 	{

@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TimberEnemyCharacter.h"
+#include "DieRobotEnemyCharacter.h"
 #include "TutorialDummy.generated.h"
 
 class ADieRobotGameStateBase;
 
 UCLASS()
-class DIEROBOT_API ATutorialDummy : public ATimberEnemyCharacter
+class DIEROBOT_API ATutorialDummy : public ADieRobotEnemyCharacter
 {
 	GENERATED_BODY()
 

@@ -3,7 +3,7 @@
 
 #include "BuildSystem/Traps/PlusTrapBase.h"
 
-#include "BuildSystem/BuildingComponents/TimberBuildingComponentBase.h"
+#include "BuildSystem/BuildingComponents/DieRobotBuildingComponentBase.h"
 #include "Components/BoxComponent.h"
 
 

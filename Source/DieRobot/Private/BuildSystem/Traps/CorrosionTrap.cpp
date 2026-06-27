@@ -3,7 +3,7 @@
 
 #include "BuildSystem/Traps/CorrosionTrap.h"
 
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/BoxComponent.h"
 #include "Components/StatusEffect/StatusConditionManager.h"
 
@@ -32,7 +32,7 @@ void ACorrosionTrap::HandleFrostTrapBeginOverlap(UPrimitiveComponent* Overlapped
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	//Apply Status Effect.
-	if (OtherActor->IsA(ATimberEnemyCharacter::StaticClass()))
+	if (OtherActor->IsA(ADieRobotEnemyCharacter::StaticClass()))
 	{
 		EffectConditionManager->ResolveEffect(StatusEffectDefinitions, OtherActor);
 	}

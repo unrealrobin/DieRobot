@@ -6,8 +6,8 @@
 #include "Components/Combat/CombatComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
-#include "Weapons/TimberWeaponRangedBase.h"
-#include "Weapons/Projectiles/TimberPlayerProjectile.h"
+#include "Weapons/DieRobotWeaponRangedBase.h"
+#include "Weapons/Projectiles/DieRobotPlayerProjectile.h"
 
 UFireBasicProjectile::UFireBasicProjectile()
 {
@@ -22,7 +22,7 @@ void UFireBasicProjectile::Execute(FAbilityContext Context)
 	//UE_LOG(LogTemp, Warning, TEXT("In Fire Ranged Weapon"));
 	if (ProjectileClass)
 	{
-		if (ATimberWeaponRangedBase* OwningWeapon = Cast<ATimberWeaponRangedBase>(Context.WeaponInstance))
+		if (ADieRobotWeaponRangedBase* OwningWeapon = Cast<ADieRobotWeaponRangedBase>(Context.WeaponInstance))
 		{
 			FVector ProjectileSpawnLocation = OwningWeapon->ProjectileSpawnComponent->GetComponentLocation();
 			FRotator ProjectileAimRotation = (Context.TargetLocation - ProjectileSpawnLocation).Rotation();
@@ -33,13 +33,13 @@ void UFireBasicProjectile::Execute(FAbilityContext Context)
 			
 			FTransform ProjectileSpawnTransform = FTransform(ProjectileAimRotation, ProjectileSpawnLocation);
 			
-			ATimberPlayerProjectile* Projectile = GetWorld()->SpawnActorDeferred<ATimberPlayerProjectile>(
+			ADieRobotPlayerProjectile* Projectile = GetWorld()->SpawnActorDeferred<ADieRobotPlayerProjectile>(
 				ProjectileClass,
 				ProjectileSpawnTransform,
 				SpawnParams.Owner);
 
 			//Instigator is the Owner of the Combat Component
-			Projectile->PlayerProjectileOwner = Cast<ATimberPlayableCharacter>(Context.Instigator);
+			Projectile->PlayerProjectileOwner = Cast<ADieRobotPlayableCharacter>(Context.Instigator);
 			
 			Projectile->FinishSpawning(ProjectileSpawnTransform);
 

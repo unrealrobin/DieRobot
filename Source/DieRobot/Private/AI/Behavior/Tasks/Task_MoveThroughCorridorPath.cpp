@@ -3,9 +3,9 @@
 
 #include "AI/Behavior/Tasks/Task_MoveThroughCorridorPath.h"
 
-#include "AI/TimberAiControllerBase.h"
+#include "AI/DieRobotAiControllerBase.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/Navigation/NavigationHelperComponent.h"
 #include "Navigation/PathFollowingComponent.h"
 
@@ -21,16 +21,16 @@ EBTNodeResult::Type UTask_MoveThroughCorridorPath::ExecuteTask(UBehaviorTreeComp
 
 	BehaviorTreeComponent = &OwnerComp;
 	
-	AIControllerBase = Cast<ATimberAiControllerBase>(OwnerComp.GetAIOwner());
+	AIControllerBase = Cast<ADieRobotAiControllerBase>(OwnerComp.GetAIOwner());
 	if (!AIControllerBase) return EBTNodeResult::Failed;
 
-	ATimberEnemyCharacter* AiEnemyCharacter = Cast<ATimberEnemyCharacter>(AIControllerBase->GetPawn());
+	ADieRobotEnemyCharacter* AiEnemyCharacter = Cast<ADieRobotEnemyCharacter>(AIControllerBase->GetPawn());
 	if (!AiEnemyCharacter) return EBTNodeResult::Failed;
 
 	UBlackboardComponent* BlackboardComponent = OwnerComp.GetBlackboardComponent();
 	if (!BlackboardComponent) return EBTNodeResult::Failed;
 
-	ATimberEnemyCharacter* EnemyCharacter = Cast<ATimberEnemyCharacter>(BlackboardComponent->GetValueAsObject(SelfActorKey.SelectedKeyName));
+	ADieRobotEnemyCharacter* EnemyCharacter = Cast<ADieRobotEnemyCharacter>(BlackboardComponent->GetValueAsObject(SelfActorKey.SelectedKeyName));
 	AActor* TargetActor = Cast<AActor>(BlackboardComponent->GetValueAsObject(TargetActorKey.SelectedKeyName));
 
 	if (EnemyCharacter && EnemyCharacter->NavHelperComponent && TargetActor)

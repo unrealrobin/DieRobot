@@ -37,7 +37,7 @@ class DIEROBOT_API ADieRobotGameStateBase : public AGameStateBase
 public:
 	/*
 	 * Bound Classes
-	 * TimberGameModeBase
+	 * DieRobotGameModeBase
 	 * Controller
 	 * HUD
 	 */

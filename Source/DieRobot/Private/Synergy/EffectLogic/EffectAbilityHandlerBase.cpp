@@ -3,7 +3,7 @@
 
 #include "Synergy/EffectLogic/EffectAbilityHandlerBase.h"
 
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/StatusEffect/StatusEffectHandlerComponent.h"
 #include "Data/DataAssets/StatusEffects/StatusEffectBase.h"
 
@@ -40,7 +40,7 @@ void UEffectAbilityHandlerBase::RemoveEmergentTagFromActor(AActor* TargetActor, 
 {
 	if (IsValid(TargetActor))
 	{
-		ATimberEnemyCharacter* Enemy = Cast<ATimberEnemyCharacter>(TargetActor);
+		ADieRobotEnemyCharacter* Enemy = Cast<ADieRobotEnemyCharacter>(TargetActor);
 		if (IsValid(Enemy))
 		{
 			Enemy->StatusEffectHandler->RemoveEmergentTag(Tag);
@@ -108,7 +108,7 @@ TArray<AActor*> UEffectAbilityHandlerBase::GetActorsInRadius_IncludeTarget(AActo
 				//Checking Z Diffrence of Hit Actor and Source Actor
 				if (FMath::Abs(SourceActor->GetActorLocation().Z - OverlapResult.GetActor()->GetActorLocation().Z) < VerticalOffsetAmount)
 				{
-					if (OverlapResult.GetActor()->IsA(ATimberEnemyCharacter::StaticClass()))
+					if (OverlapResult.GetActor()->IsA(ADieRobotEnemyCharacter::StaticClass()))
 					{
 						ActorsInRadius.Add(OverlapResult.GetActor());
 					}

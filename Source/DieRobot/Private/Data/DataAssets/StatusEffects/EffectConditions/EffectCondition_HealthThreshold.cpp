@@ -3,7 +3,7 @@
 
 #include "Data/DataAssets/StatusEffects/EffectConditions/EffectCondition_HealthThreshold.h"
 
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 
 UEffectCondition_HealthThreshold::UEffectCondition_HealthThreshold()
 {
@@ -12,7 +12,7 @@ UEffectCondition_HealthThreshold::UEffectCondition_HealthThreshold()
 
 bool UEffectCondition_HealthThreshold::EvaluateCondition(const FEffectConditionContext& Context) const
 {
-	ATimberEnemyCharacter* Enemy = Cast<ATimberEnemyCharacter>(Context.TargetActor);
+	ADieRobotEnemyCharacter* Enemy = Cast<ADieRobotEnemyCharacter>(Context.TargetActor);
 	if (Enemy)
 	{
 		if (bIsPercentage)

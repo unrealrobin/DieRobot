@@ -3,10 +3,10 @@
 
 #include "BuildSystem/Traps/TrapBase.h"
 
-#include "BuildSystem/BuildingComponents/TimberBuildingComponentBase.h"
-#include "BuildSystem/BuildingComponents/TimberVerticalBuildingComponent.h"
-#include "Character/TimberPlayableCharacter.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "BuildSystem/BuildingComponents/DieRobotBuildingComponentBase.h"
+#include "BuildSystem/BuildingComponents/DieRobotVerticalBuildingComponent.h"
+#include "Character/DieRobotPlayableCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/BoxComponent.h"
 #include "Components/StatusEffect/StatusConditionManager.h"
 #include "Components/StatusEffect/StatusEffectHandlerComponent.h"
@@ -70,7 +70,7 @@ void ATrapBase::SetIsAmplified(bool bIsAmplified)
 
 void ATrapBase::FreeUpTrapSlotOnBuildingComponent()
 {
-	if (ATimberBuildingComponentBase* ParentBuildingComponent = Cast<ATimberBuildingComponentBase>(ParentBuildable))
+	if (ADieRobotBuildingComponentBase* ParentBuildingComponent = Cast<ADieRobotBuildingComponentBase>(ParentBuildable))
 	{
 	
 		UE_LOG(LogTemp, Warning, TEXT("Parent Building Component Name: %s"), *ParentBuildable->GetName());
@@ -120,7 +120,7 @@ void ATrapBase::HitBoxBeginOverlap(
 	bool bFromSweep, const FHitResult& SweepResult)
 {
 	//GEngine->AddOnScreenDebugMessage(13, 3.0f, FColor::Red, "Trap HitBox Overlap");
-	if (IsValid(OtherActor) && OtherActor->IsA(ATimberEnemyCharacter::StaticClass()) && !InsideHitBoxArray.Contains(OtherActor))
+	if (IsValid(OtherActor) && OtherActor->IsA(ADieRobotEnemyCharacter::StaticClass()) && !InsideHitBoxArray.Contains(OtherActor))
 	{
 		AddEnemyToInsideHitBoxArray(OtherActor);
 	}
@@ -129,7 +129,7 @@ void ATrapBase::HitBoxBeginOverlap(
 void ATrapBase::HitBoxEndOverlap(
 	UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	if (IsValid(OtherActor) && OtherActor->IsA(ATimberEnemyCharacter::StaticClass()) && InsideHitBoxArray.Contains(OtherActor))
+	if (IsValid(OtherActor) && OtherActor->IsA(ADieRobotEnemyCharacter::StaticClass()) && InsideHitBoxArray.Contains(OtherActor))
 	{
 		RemoveEnemyFromInsideHitBoxArray(OtherActor);
 	}
@@ -160,7 +160,7 @@ void ATrapBase::ConfigureStaticMeshWalkableSlope(AActor* ParentBuildableRef)
 	 * bIsUnwalk
 	 */
 	//Parent Buildable is a Vertical Wall
-	if (Cast<ATimberVerticalBuildingComponent>(ParentBuildableRef))
+	if (Cast<ADieRobotVerticalBuildingComponent>(ParentBuildableRef))
 	{
 		GetAllStaticMeshComponents();
 		

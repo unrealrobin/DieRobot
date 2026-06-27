@@ -4,9 +4,9 @@
 #include "Character/Enemies/EnemyDrone.h"
 
 #include "StructDeserializer.h"
-#include "Weapons/Projectiles/TimberEnemyProjectile.h"
-#include "BuildSystem/BuildingComponents/TimberBuildingComponentBase.h"
-#include "BuildSystem/buildingComponents/TimberVerticalBuildingComponent.h"
+#include "Weapons/Projectiles/DieRobotEnemyProjectile.h"
+#include "BuildSystem/BuildingComponents/DieRobotBuildingComponentBase.h"
+#include "BuildSystem/buildingComponents/DieRobotVerticalBuildingComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Niagara/Public/NiagaraComponent.h"
 #include "Components/SplineComponent.h"
@@ -259,12 +259,12 @@ void AEnemyDrone::GatherTargets()
 {
 	TargetActors.Empty();
 	
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATimberBuildingComponentBase::StaticClass(), TargetActors);
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ADieRobotBuildingComponentBase::StaticClass(), TargetActors);
 
 	//Remove all loops through the TargetActors array to remove any Environment Building Components, ensure to do it safely without skipping
 	TargetActors.RemoveAll([](AActor* Actor)
 	{
-		ATimberBuildingComponentBase* BuildingComponent = Cast<ATimberBuildingComponentBase>(Actor);
+		ADieRobotBuildingComponentBase* BuildingComponent = Cast<ADieRobotBuildingComponentBase>(Actor);
 		if (BuildingComponent && BuildingComponent->BuildingComponentType == EBuildingComponentType::Environment)
 		{
 			return true; // Remove Environment Building Components
@@ -284,7 +284,7 @@ void AEnemyDrone::GatherTargets()
 			int32 RandomIndex = FMath::RandRange(0, TargetActors.Num() - 1);
 			AActor* PotentialTarget = TargetActors[RandomIndex];
 
-			ATimberBuildingComponentBase* BuildingComponent = Cast<ATimberVerticalBuildingComponent>(PotentialTarget);
+			ADieRobotBuildingComponentBase* BuildingComponent = Cast<ADieRobotVerticalBuildingComponent>(PotentialTarget);
 			if (BuildingComponent && BuildingComponent->BuildingComponentType == EBuildingComponentType::Environment)
 			{
 				//Do not want to target Environment Building Components

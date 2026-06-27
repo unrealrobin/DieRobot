@@ -67,7 +67,7 @@ void AStartUpGameMode::InitializeLastLoadedGameSlot()
 		//When a game is loaded it sets the Current Save Slot on the Save Load Subsystem.
 		// WHen the Game is saved, the value is then set on the Global Save Data File.
 		//Here we retrieve from the Global Save Data and repopulate that data
-		//TimberGameModeBase then uses that value
+		//DieRobotGameModeBase then uses that value
 		SaveLoadSubsystem->SetLastPlayedSaveSlot();
 	}
 }

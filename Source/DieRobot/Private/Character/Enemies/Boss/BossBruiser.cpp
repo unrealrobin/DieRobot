@@ -4,7 +4,7 @@
 #include "Character/Enemies/Boss/BossBruiser.h"
 
 #include "AudioDevice.h"
-#include "Character/TimberPlayableCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
 #include "Components/BoxComponent.h"
 #include "Components/CapsuleComponent.h"
 
@@ -57,7 +57,7 @@ void ABossBruiser::HandleWhirlwindOverlap(
 	UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& SweepResult)
 {
-	ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
 
 	//Only damages the Player, will not Damage other enemies or Building Components.
 	if (PlayerCharacter)
@@ -76,7 +76,7 @@ void ABossBruiser::HandleBHandSlapOverlap(
 	UE_LOG(LogTemp, Warning, TEXT("Overlapped Component Owner: %s"), *OtherComp->GetOwner()->GetName());
 	//Issue is the OtherComp is the Hit Box from the Weapon Ability and its Owner returns to the Player Character Initiating Damage.
 	
-	ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
 	if (PlayerCharacter)
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Backhand Slap Applied Damage to Player."));
@@ -89,7 +89,7 @@ void ABossBruiser::HandleOverHeadSmashOverlap(
 	bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Bruiser - Overhead Smash Overlapped."));
-	ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
 	if (PlayerCharacter)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Overhead Smash Applied Damage to Player."));

@@ -5,7 +5,7 @@
 
 #include "Character/Enemies/Boss/BossLola.h"
 #include "Components/CapsuleComponent.h"
-#include "Weapons/Projectiles/TimberEnemyProjectile.h"
+#include "Weapons/Projectiles/DieRobotEnemyProjectile.h"
 
 
 // Sets default values
@@ -110,7 +110,7 @@ void AFloaterDrones::FireProjectile()
 
 	if (GetWorld())
 	{
-		ATimberProjectileBase* Projectile = GetWorld()->SpawnActor<ATimberProjectileBase>(
+		ADieRobotProjectileBase* Projectile = GetWorld()->SpawnActor<ADieRobotProjectileBase>(
 		ProjectileClass,
 		RaycastStartPoint->GetComponentLocation(),
 		GetActorRotation(),

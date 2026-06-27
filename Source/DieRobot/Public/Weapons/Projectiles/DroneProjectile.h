@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TimberEnemyProjectile.h"
+#include "DieRobotEnemyProjectile.h"
 #include "DroneProjectile.generated.h"
 
 UCLASS()
-class DIEROBOT_API ADroneProjectile : public ATimberEnemyProjectile
+class DIEROBOT_API ADroneProjectile : public ADieRobotEnemyProjectile
 {
 	GENERATED_BODY()
 

@@ -4,8 +4,8 @@
 #include "Tests/TestObj.h"
 
 #include "Components/CapsuleComponent.h"
-#include "Character/TimberPlayableCharacter.h"
-#include "Controller/TimberPlayerController.h"
+#include "Character/DieRobotPlayableCharacter.h"
+#include "Controller/DieRobotPlayerController.h"
 #include "Subsystems/Wave/WaveGameInstanceSubsystem.h"
 
 // Sets default values
@@ -73,10 +73,10 @@ void ATestObj::SetInteractItem(
 	bool bFromSweep, const FHitResult& SweepResult)
 
 {
-	ATimberPlayableCharacter* TimberCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
-	if (TimberCharacter)
+	ADieRobotPlayableCharacter* DieRobotCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
+	if (DieRobotCharacter)
 	{
-		ATimberPlayerController* PlayerController = Cast<ATimberPlayerController>(TimberCharacter->GetController());
+		ADieRobotPlayerController* PlayerController = Cast<ADieRobotPlayerController>(DieRobotCharacter->GetController());
 		PlayerController->SetInteractableItem(Cast<IInteractable>(this));
 	}
 }
@@ -90,11 +90,11 @@ void ATestObj::UnSetInteractItem(
 	}
 
 	StaticMeshBase->AddLocalRotation(FRotator3d(0.0f, 0.0f, 0.0f));
-	ATimberPlayableCharacter* TimberCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* DieRobotCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
 
-	if (TimberCharacter)
+	if (DieRobotCharacter)
 	{
-		ATimberPlayerController* PlayerController = Cast<ATimberPlayerController>(TimberCharacter->GetController());
+		ADieRobotPlayerController* PlayerController = Cast<ADieRobotPlayerController>(DieRobotCharacter->GetController());
 		PlayerController->ClearInteractableItem();
 	}
 }

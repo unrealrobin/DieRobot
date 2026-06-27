@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Controller/TimberPlayerController.h"
+#include "Controller/DieRobotPlayerController.h"
 #include "WelcomeLetter.generated.h"
 
 class UButton;
@@ -18,7 +18,7 @@ class DIEROBOT_API UWelcomeLetter : public UUserWidget
 	
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
-	TObjectPtr<ATimberPlayerController> DrPlayerController;
+	TObjectPtr<ADieRobotPlayerController> DrPlayerController;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets", meta = (BindWidget))
 	TObjectPtr<UButton> CloseButton;

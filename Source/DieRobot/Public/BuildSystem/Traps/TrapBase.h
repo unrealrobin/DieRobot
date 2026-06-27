@@ -12,8 +12,8 @@
 class UStatusEffectDefinition;
 class UStatusConditionManager;
 class UStatusEffectBase;
-class ATimberEnemyCharacter;
-class ATimberBuildingComponentBase;
+class ADieRobotEnemyCharacter;
+class ADieRobotBuildingComponentBase;
 class UBoxComponent;
 
 UENUM(BlueprintType)
@@ -96,7 +96,7 @@ public:
 	
 	/* Placement Utilities */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Building Component")
-	ATimberBuildingComponentBase* TrapHoveredBuildingComponent = nullptr;
+	ADieRobotBuildingComponentBase* TrapHoveredBuildingComponent = nullptr;
 
 	//TODO:: Work on Renaming this to be more General to Center Snap Buildable. 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Trap Components")

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Engine/DataAsset.h"
 #include "WaveCompDataAsset.generated.h"
 
@@ -16,13 +16,13 @@ class DIEROBOT_API UWaveCompDataAsset : public UDataAsset
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Composition")
-	TSubclassOf<ATimberEnemyCharacter> BasicRobotClass;
+	TSubclassOf<ADieRobotEnemyCharacter> BasicRobotClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Composition")
-	TSubclassOf<ATimberEnemyCharacter> MeleeRobotClass;
+	TSubclassOf<ADieRobotEnemyCharacter> MeleeRobotClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Composition")
-	TSubclassOf<ATimberEnemyCharacter> RangedRobotClass;
+	TSubclassOf<ADieRobotEnemyCharacter> RangedRobotClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Composition")
-	TSubclassOf<ATimberEnemyCharacter> DroneClass;
+	TSubclassOf<ADieRobotEnemyCharacter> DroneClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Composition")
 	UCurveTable* SpawningCurveTable;

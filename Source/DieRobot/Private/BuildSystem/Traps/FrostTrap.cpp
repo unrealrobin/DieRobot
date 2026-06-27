@@ -4,7 +4,7 @@
 #include "BuildSystem/Traps/FrostTrap.h"
 
 #include "NiagaraComponent.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/BoxComponent.h"
 #include "Components/StatusEffect/StatusConditionManager.h"
 #include "Components/StatusEffect/StatusEffectHandlerComponent.h"
@@ -52,7 +52,7 @@ void AFrostTrap::HandleFrostTrapBeginOverlap(
 	UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor->IsA(ATimberEnemyCharacter::StaticClass()))
+	if (OtherActor->IsA(ADieRobotEnemyCharacter::StaticClass()))
 	{
 		EffectConditionManager->ResolveEffect(StatusEffectDefinitions, OtherActor);
 	}

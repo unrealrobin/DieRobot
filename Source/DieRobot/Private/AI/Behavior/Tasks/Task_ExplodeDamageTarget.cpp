@@ -5,9 +5,9 @@
 
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "BuildSystem/BuildingComponents/TimberBuildingComponentBase.h"
-#include "Character/TimberSeeda.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "BuildSystem/BuildingComponents/DieRobotBuildingComponentBase.h"
+#include "Character/DieRobotSeeda.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 
 UTask_ExplodeDamageTarget::UTask_ExplodeDamageTarget()
 {
@@ -34,7 +34,7 @@ EBTNodeResult::Type UTask_ExplodeDamageTarget::ExecuteTask(UBehaviorTreeComponen
 	//UE_LOG(LogTemp, Warning, TEXT("Target Actor is Valid."));
 
 	//Referring to the Controlled Carbonite Character
-	SelfEnemyCharacter = Cast<ATimberEnemyCharacter>(BlackboardComponent->GetValueAsObject(SelfActorKey.SelectedKeyName));
+	SelfEnemyCharacter = Cast<ADieRobotEnemyCharacter>(BlackboardComponent->GetValueAsObject(SelfActorKey.SelectedKeyName));
 	if (!SelfEnemyCharacter) return EBTNodeResult::Failed;
 	//UE_LOG(LogTemp, Warning, TEXT("Self Actor is Valid."));
 
@@ -54,11 +54,11 @@ void UTask_ExplodeDamageTarget::OnTaskFinished(UBehaviorTreeComponent& OwnerComp
 	Super::OnTaskFinished(OwnerComp, NodeMemory, TaskResult);
 }
 
-void UTask_ExplodeDamageTarget::HandleDamage(AActor* ActorToDamage, ATimberEnemyCharacter* SelfActorEnemy)
+void UTask_ExplodeDamageTarget::HandleDamage(AActor* ActorToDamage, ADieRobotEnemyCharacter* SelfActorEnemy)
 {
 	//Damage here can potentially be set on the Owning Actor. Maybe each type of Enemy applies different damage and the value is stored on the Enemy Character?
 	//UE_LOG(LogTemp, Warning, TEXT("2.UTask_ExplodeDamageTarget - HandleDamage() - Executing Damage on Actor: %s"), *ActorToDamage->GetName());
-	ATimberSeeda* DataSeed = Cast<ATimberSeeda>(ActorToDamage);
+	ADieRobotSeeda* DataSeed = Cast<ADieRobotSeeda>(ActorToDamage);
 	if (DataSeed)
 	{
 		DataSeed->TakeDamage_Seeda(DataSeedDamageAmount);
@@ -68,7 +68,7 @@ void UTask_ExplodeDamageTarget::HandleDamage(AActor* ActorToDamage, ATimberEnemy
 	//UE_LOG(LogTemp, Warning, TEXT("Could not Cast to Data Seed in HandleDamage()."));
 	
 
-	ATimberBuildingComponentBase* BuildableStructure = Cast<ATimberBuildingComponentBase>(ActorToDamage);
+	ADieRobotBuildingComponentBase* BuildableStructure = Cast<ADieRobotBuildingComponentBase>(ActorToDamage);
 	if (BuildableStructure)
 	{
 		BuildableStructure->BuildingComponentTakeDamage(BuildableDamageAmount, SelfActorEnemy);
@@ -78,7 +78,7 @@ void UTask_ExplodeDamageTarget::HandleDamage(AActor* ActorToDamage, ATimberEnemy
 	
 }
 
-void UTask_ExplodeDamageTarget::HandleCharacterDestruction(ATimberEnemyCharacter* ActorForDestruction)
+void UTask_ExplodeDamageTarget::HandleCharacterDestruction(ADieRobotEnemyCharacter* ActorForDestruction)
 {
 	//Calls the destruction function on the Actor.
 	if (ActorForDestruction)

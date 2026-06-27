@@ -3,14 +3,14 @@
 
 #include "UI/Inventory/InventoryWidget.h"
 
-#include "Controller/TimberPlayerController.h"
-#include "GameModes/TimberGameModeBase.h"
+#include "Controller/DieRobotPlayerController.h"
+#include "GameModes/DieRobotGameModeBase.h"
 
 void UInventoryWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	ATimberGameModeBase* GM = Cast<ATimberGameModeBase>(GetWorld()->GetAuthGameMode());
+	ADieRobotGameModeBase* GM = Cast<ADieRobotGameModeBase>(GetWorld()->GetAuthGameMode());
 	if (GM)
 	{
 		if (!GM->OnCharacterInitialization.Contains(this, FName("InitializeInventoryWidget")))
@@ -26,11 +26,11 @@ void UInventoryWidget::NativeConstruct()
 void UInventoryWidget::InitializeInventoryWidget()
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Inventory Widget - Initializing Inventory Widget"));
-	ATimberPlayerController* PlayerController = Cast<ATimberPlayerController>(GetOwningPlayer());
+	ADieRobotPlayerController* PlayerController = Cast<ADieRobotPlayerController>(GetOwningPlayer());
 	if(IsValid(PlayerController))
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Inventory Widget - Player Controller Initialized"));
-		PlayerCharacter = Cast<ATimberPlayableCharacter>(PlayerController->GetPawn());
+		PlayerCharacter = Cast<ADieRobotPlayableCharacter>(PlayerController->GetPawn());
 		if(IsValid(PlayerCharacter))
 		{
 			//UE_LOG(LogTemp, Warning, TEXT("Inventory Widget - Player Character Initialized"));

@@ -8,7 +8,7 @@
 #include "Types/DieRobotGlobalSaveDataStruct.h"
 #include "SaveLoadSubsystem.generated.h"
 
-class ATimberGameModeBase;
+class ADieRobotGameModeBase;
 class UDieRobotGlobalSaveData;
 /**
  * 
@@ -69,11 +69,11 @@ private:
 	// Deferring the Loading of the Player State to After the Initialization of the Character on Level Load.
 	UFUNCTION()
 	void OnCharacterInitialization();
-	void CheckBuildingComponentForSnapAttachments(FBuildableData& BuildableData, ATimberBuildingComponentBase* BuildingComponent);
+	void CheckBuildingComponentForSnapAttachments(FBuildableData& BuildableData, ADieRobotBuildingComponentBase* BuildingComponent);
 	void RemoveAllLabBuildables();
 	void RemoveAllLootItems();
 	//Deferred Character Initialization Bindings
-	void BindToGameModeBaseDelegate(ATimberGameModeBase* GameModeBase);
+	void BindToGameModeBaseDelegate(ADieRobotGameModeBase* GameModeBase);
 	//Register Buildables - Add to TMap
 	void RegisterBuildable(ABuildableBase* Buildable);
 	//DeRegister Buildables - Remove Buildables from TMap

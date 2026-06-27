@@ -3,7 +3,7 @@
 
 #include "Loot/LootHealthDrop.h"
 
-#include "Character/TimberPlayableCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
 #include "Components/CapsuleComponent.h"
 
 
@@ -38,7 +38,7 @@ void ALootHealthDrop::HandlePlayerOverlap(
 	UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& SweepResult)
 {
-	ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
 	
 	if (PlayerCharacter)
 	{

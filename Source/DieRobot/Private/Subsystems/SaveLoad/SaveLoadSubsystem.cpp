@@ -5,20 +5,20 @@
 
 #include "BuildSystem/Constructs/ConstructBase.h"
 #include "BuildSystem/Constructs/TeleportConstruct.h"
-#include "Character/TimberPlayableCharacter.h"
-#include "Character/TimberSeeda.h"
+#include "Character/DieRobotPlayableCharacter.h"
+#include "Character/DieRobotSeeda.h"
 #include "Components/Combat/CombatComponent.h"
 #include "Components/Inventory/InventoryManagerComponent.h"
 #include "Components/MissionDelivery/MissionDeliveryComponent.h"
 #include "Components/Vignette/PlayerVignetteComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "GameModes/TimberGameModeBase.h"
+#include "GameModes/DieRobotGameModeBase.h"
 #include "Subsystems/Wave/WaveGameInstanceSubsystem.h"
 #include "Kismet/GameplayStatics.h"
 #include "States/PlayerStateBase.h"
 #include "Subsystems/SaveLoad/Types/DieRobotGlobalSaveDataStruct.h"
-#include "Weapons/TimberWeaponMeleeBase.h"
-#include "Weapons/TimberWeaponRangedBase.h"
+#include "Weapons/DieRobotWeaponMeleeBase.h"
+#include "Weapons/DieRobotWeaponRangedBase.h"
 
 void USaveLoadSubsystem::SetNewGameSaveSlot()
 {
@@ -134,7 +134,7 @@ void USaveLoadSubsystem::SaveBuildableData(USaveLoadStruct* SaveGameInstance)
 				 */
 				
 				//Looping through the array of attached Buildable Instances and saving their GUID's to our AttachedBuildablesGUID Array.
-				if (ATimberBuildingComponentBase* BuildingComponent = Cast<ATimberBuildingComponentBase>(Buildable))
+				if (ADieRobotBuildingComponentBase* BuildingComponent = Cast<ADieRobotBuildingComponentBase>(Buildable))
 				{
 					if (BuildingComponent->AttachedBuildingComponents.Num() > 0)
 					{
@@ -218,10 +218,10 @@ void USaveLoadSubsystem::SaveWaveData(USaveLoadStruct* SaveGameInstance)
 
 void USaveLoadSubsystem::SavePlayerData(USaveLoadStruct* SaveGameInstance)
 {
-	ATimberGameModeBase* GameMode = Cast<ATimberGameModeBase>(GetWorld()->GetAuthGameMode());
+	ADieRobotGameModeBase* GameMode = Cast<ADieRobotGameModeBase>(GetWorld()->GetAuthGameMode());
 	if (GameMode)
 	{
-		ATimberPlayableCharacter* Character = GameMode->TimberCharacter;
+		ADieRobotPlayableCharacter* Character = GameMode->DieRobotCharacter;
 		if (Character)
 		{
 			/*Save Player Location*/
@@ -259,7 +259,7 @@ void USaveLoadSubsystem::SavePlayerData(USaveLoadStruct* SaveGameInstance)
 void USaveLoadSubsystem::SaveSeedaData(USaveLoadStruct* SaveGameInstance)
 {
 	/*Saving Seeda Location & Health*/
-	ATimberSeeda* Seeda = Cast<ATimberSeeda>(UGameplayStatics::GetActorOfClass(GetWorld(), ATimberSeeda::StaticClass()));
+	ADieRobotSeeda* Seeda = Cast<ADieRobotSeeda>(UGameplayStatics::GetActorOfClass(GetWorld(), ADieRobotSeeda::StaticClass()));
 	if (Seeda && SaveGameInstance)
 	{
 		SaveGameInstance->SeedaData.SeedaLocation = Seeda->GetActorLocation();
@@ -271,7 +271,7 @@ void USaveLoadSubsystem::SaveSeedaData(USaveLoadStruct* SaveGameInstance)
 	}
 }
 
-void USaveLoadSubsystem::CheckBuildingComponentForSnapAttachments(FBuildableData& BuildableData, ATimberBuildingComponentBase* BuildingComponent)
+void USaveLoadSubsystem::CheckBuildingComponentForSnapAttachments(FBuildableData& BuildableData, ADieRobotBuildingComponentBase* BuildingComponent)
 {
 	//Individual Snap Points used for information player if snap is available.
 	if (BuildingComponent->FrontBottomAttachment &&
@@ -405,7 +405,7 @@ FString USaveLoadSubsystem::GetLastPlayedSaveSlot()
 void USaveLoadSubsystem::LoadGame(FString SlotToLoad)
 {
 	UWaveGameInstanceSubsystem* WaveSubsystem = GetGameInstance()->GetSubsystem<UWaveGameInstanceSubsystem>();
-	ATimberGameModeBase* GameMode = Cast<ATimberGameModeBase>(GetWorld()->GetAuthGameMode());
+	ADieRobotGameModeBase* GameMode = Cast<ADieRobotGameModeBase>(GetWorld()->GetAuthGameMode());
 	
 	if (WaveSubsystem && GameMode)
 	{
@@ -500,7 +500,7 @@ void USaveLoadSubsystem::LoadBuildableData(USaveLoadStruct* LoadGameInstance)
 void USaveLoadSubsystem::LoadWaveData(USaveLoadStruct* LoadGameInstance)
 {
 	UWaveGameInstanceSubsystem* WaveSubsystem = GetGameInstance()->GetSubsystem<UWaveGameInstanceSubsystem>();
-	ATimberGameModeBase* GameMode = Cast<ATimberGameModeBase>(GetWorld()->GetAuthGameMode());
+	ADieRobotGameModeBase* GameMode = Cast<ADieRobotGameModeBase>(GetWorld()->GetAuthGameMode());
 	if (LoadGameInstance && WaveSubsystem && GameMode)
 	{
 		WaveSubsystem->CurrentWaveNumber = LoadGameInstance->WaveNumber;
@@ -513,32 +513,32 @@ void USaveLoadSubsystem::LoadWaveData(USaveLoadStruct* LoadGameInstance)
 
 void USaveLoadSubsystem::LoadPlayerState(USaveLoadStruct* LoadGameInstance)
 {
-	ATimberGameModeBase* GameMode = Cast<ATimberGameModeBase>(GetWorld()->GetAuthGameMode());
+	ADieRobotGameModeBase* GameMode = Cast<ADieRobotGameModeBase>(GetWorld()->GetAuthGameMode());
 	if (GameMode)
 	{
-		ATimberPlayableCharacter* TimberCharacter = GameMode->TimberCharacter;
-		if (IsValid(TimberCharacter))
+		ADieRobotPlayableCharacter* DieRobotCharacter = GameMode->DieRobotCharacter;
+		if (IsValid(DieRobotCharacter))
 		{
 			if(!LoadGameInstance->PlayerData.PlayerLocation.IsZero())
 			{
-				TimberCharacter->SetActorLocation(LoadGameInstance->PlayerData.PlayerLocation);
-				TimberCharacter->SetActorRotation(LoadGameInstance->PlayerData.PlayerRotation);
+				DieRobotCharacter->SetActorLocation(LoadGameInstance->PlayerData.PlayerLocation);
+				DieRobotCharacter->SetActorRotation(LoadGameInstance->PlayerData.PlayerRotation);
 			}
-			Cast<APlayerController>(TimberCharacter->GetController())->FlushPressedKeys();
-			TimberCharacter->GetCharacterMovement()->StopMovementImmediately();
+			Cast<APlayerController>(DieRobotCharacter->GetController())->FlushPressedKeys();
+			DieRobotCharacter->GetCharacterMovement()->StopMovementImmediately();
 			
-			TimberCharacter->bIsPlayerDead = false;
+			DieRobotCharacter->bIsPlayerDead = false;
 
 			//Resetting Vignette to Full health
-			TimberCharacter->CurrentHealth = TimberCharacter->MaxHealth;
-			if (IsValid(TimberCharacter->VignetteComponent))
+			DieRobotCharacter->CurrentHealth = DieRobotCharacter->MaxHealth;
+			if (IsValid(DieRobotCharacter->VignetteComponent))
 			{
-				TimberCharacter->VignetteComponent->SetVignetteStateToFullHealth();
+				DieRobotCharacter->VignetteComponent->SetVignetteStateToFullHealth();
 			}
 			
 			
 			//Reverting player Inventory to last save.
-			APlayerStateBase* PS = Cast<APlayerStateBase>(TimberCharacter->GetPlayerState());
+			APlayerStateBase* PS = Cast<APlayerStateBase>(DieRobotCharacter->GetPlayerState());
 			if (IsValid(PS))
 			{
 				PS->MainInventory->NumberOfParts = LoadGameInstance->PlayerData.PlayerInventory.NumberOfParts;
@@ -546,7 +546,7 @@ void USaveLoadSubsystem::LoadPlayerState(USaveLoadStruct* LoadGameInstance)
 				PS->MainInventory->NumberOfUniques = LoadGameInstance->PlayerData.PlayerInventory.NumberOfUniques;
 				
 				//Broadcast update so HUD Reflects Inventory
-				TimberCharacter->InventoryManager->UpdateInventoryHandle.Broadcast();
+				DieRobotCharacter->InventoryManager->UpdateInventoryHandle.Broadcast();
 
 				/*UE_LOG(LogTemp, Warning, TEXT("Loaded Player Inventory - Parts: %d, Mechanisms: %d, Uniques: %d"),
 	                PS->MainInventory->NumberOfParts,
@@ -555,23 +555,23 @@ void USaveLoadSubsystem::LoadPlayerState(USaveLoadStruct* LoadGameInstance)
 			}
 
 			//Ensuring weapons are loaded
-			if (ATimberWeaponRangedBase* RangedWeapon = TimberCharacter->CombatComponent->RangedWeaponInstance)
+			if (ADieRobotWeaponRangedBase* RangedWeapon = DieRobotCharacter->CombatComponent->RangedWeaponInstance)
 			{
 				if (!IsValid(RangedWeapon)) return;
 				//Loading the Ammo of the Weapon
 				RangedWeapon->CurrentAmmo = RangedWeapon->MaxAmmo;
 			}
 			//Ensuring Sword energy is at 100%
-			if (ATimberWeaponMeleeBase* MeleeWeapon = TimberCharacter->CombatComponent->MeleeWeaponInstance)
+			if (ADieRobotWeaponMeleeBase* MeleeWeapon = DieRobotCharacter->CombatComponent->MeleeWeaponInstance)
 			{
 				if (!IsValid(MeleeWeapon)) return;
 				MeleeWeapon->CurrentWeaponEnergy = MeleeWeapon->MaxWeaponEnergy;
 			}
 
 			
-			if (IsValid(TimberCharacter->MissionDeliveryComponent))
+			if (IsValid(DieRobotCharacter->MissionDeliveryComponent))
 			{
-				TimberCharacter->MissionDeliveryComponent->CompletedMissionGuids = LoadGameInstance->PlayerData.CompletedMissionList;
+				DieRobotCharacter->MissionDeliveryComponent->CompletedMissionGuids = LoadGameInstance->PlayerData.CompletedMissionList;
 			}
 		}
 	}
@@ -579,14 +579,14 @@ void USaveLoadSubsystem::LoadPlayerState(USaveLoadStruct* LoadGameInstance)
 
 void USaveLoadSubsystem::LoadSeedaData(USaveLoadStruct* LoadGameInstance)
 {
-	ATimberSeeda* Seeda = Cast<ATimberSeeda>(UGameplayStatics::GetActorOfClass(this, ATimberSeeda::StaticClass()));
+	ADieRobotSeeda* Seeda = Cast<ADieRobotSeeda>(UGameplayStatics::GetActorOfClass(this, ADieRobotSeeda::StaticClass()));
 
 	if (!IsValid(Seeda))
 	{
 		//This is the load situation if Seeda Was destroyed.
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		AActor* SeedaActor = GetWorld()->SpawnActor<ATimberSeeda>(SeedaClass,
+		AActor* SeedaActor = GetWorld()->SpawnActor<ADieRobotSeeda>(SeedaClass,
 			LoadGameInstance->SeedaData.SeedaLocation,
 			LoadGameInstance->SeedaData.SeedaRotation,
 			SpawnParams);
@@ -605,7 +605,7 @@ void USaveLoadSubsystem::LoadSeedaData(USaveLoadStruct* LoadGameInstance)
 
 }
 
-void USaveLoadSubsystem::BindToGameModeBaseDelegate(ATimberGameModeBase* GameModeBase)
+void USaveLoadSubsystem::BindToGameModeBaseDelegate(ADieRobotGameModeBase* GameModeBase)
 {
 	if (GameModeBase)
 	{
@@ -710,7 +710,7 @@ void USaveLoadSubsystem::ResolveBuildableReferences(TArray<FBuildableData> Build
 			if (Buildable)
 			{
 				//Checking if the Buildable is a Building Component
-				if (ATimberBuildingComponentBase* BuildingComponent = Cast<ATimberBuildingComponentBase>(Buildable))
+				if (ADieRobotBuildingComponentBase* BuildingComponent = Cast<ADieRobotBuildingComponentBase>(Buildable))
 				{
 					/*UE_LOG(LogTemp, Warning, TEXT("-------------------------------"));
 					UE_LOG(LogTemp, Warning, TEXT("Handling Building Component Attachments"));
@@ -775,7 +775,7 @@ void USaveLoadSubsystem::ResolveBuildableReferences(TArray<FBuildableData> Build
 				if (bIsBuildableRegistered(Data.ParentBuildableGUID))
 				{
 					//Casting the Paired Building Component to the correct type and setting the Parent Building Component
-					if (ATimberBuildingComponentBase* BuildingComponent = Cast<ATimberBuildingComponentBase>(GuidToBuildableMap[Data.ParentBuildableGUID]))
+					if (ADieRobotBuildingComponentBase* BuildingComponent = Cast<ADieRobotBuildingComponentBase>(GuidToBuildableMap[Data.ParentBuildableGUID]))
 					{
 						/*Traps*/
 						if (Trap)

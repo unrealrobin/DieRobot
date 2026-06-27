@@ -7,7 +7,7 @@
 #include "EnemyDataCluster.generated.h"
 
 struct FGameplayTag;
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 /**
  * 
  */
@@ -21,7 +21,7 @@ public:
 	virtual void NativeConstruct() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Data")
-	ATimberEnemyCharacter* EnemyOwner;
+	ADieRobotEnemyCharacter* EnemyOwner;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
 	UUserWidget* HealthBarWidget;

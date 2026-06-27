@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Engine/DataAsset.h"
 #include "EnemySpawnDataAsset.generated.h"
 
@@ -25,7 +25,7 @@ class DIEROBOT_API UEnemySpawnDataAsset : public UDataAsset
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy Data")
-	TSubclassOf<ATimberEnemyCharacter> EnemyClassReference;
+	TSubclassOf<ADieRobotEnemyCharacter> EnemyClassReference;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Enemy Data")
 	EEnemySpawnLocation SpawnLocation;

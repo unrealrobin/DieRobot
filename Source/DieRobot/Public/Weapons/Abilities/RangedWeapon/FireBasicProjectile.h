@@ -6,7 +6,7 @@
 #include "Weapons/Abilities/WeaponAbilityBase.h"
 #include "FireBasicProjectile.generated.h"
 
-class ATimberProjectileBase;
+class ADieRobotProjectileBase;
 /**
  * 
  */
@@ -28,7 +28,7 @@ protected:
 	
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
-	TSubclassOf<ATimberProjectileBase> ProjectileClass;
+	TSubclassOf<ADieRobotProjectileBase> ProjectileClass;
 
 	void HandleMuzzleFlash(UNiagaraSystem* NiagaraSystem, FVector Location, FRotator Rotation = FRotator::ZeroRotator, bool AutoDestroy = true, bool AutoActive = true);
 	

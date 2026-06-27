@@ -2,7 +2,7 @@
 
 
 #include "Weapons/Abilities/MeleeWeapon/BasicSlash.h"
-#include "Character/TimberPlayableCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
 
 
 UBasicSlash::UBasicSlash()
@@ -17,7 +17,7 @@ UBasicSlash::UBasicSlash()
 void UBasicSlash::Execute(FAbilityContext Context)
 {
 	BasicSlashContext = Context;
-	ATimberPlayableCharacter* OwningCharacter = Cast<ATimberPlayableCharacter>(BasicSlashContext.Instigator);
+	ADieRobotPlayableCharacter* OwningCharacter = Cast<ADieRobotPlayableCharacter>(BasicSlashContext.Instigator);
 
 	if (bComboInitiated || !BasicSlashContext.CombatComponent->bCanMeleeAttack)
 	{

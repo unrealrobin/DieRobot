@@ -3,7 +3,7 @@
 
 #include "Loot/LootHealthDropMax.h"
 
-#include "Character/TimberPlayableCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
 
 
 ALootHealthDropMax::ALootHealthDropMax()
@@ -22,7 +22,7 @@ void ALootHealthDropMax::HandlePlayerOverlap(
 	UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& SweepResult)
 {
-	ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
 
 	//Do Nothing if already at max health.
 	if (PlayerCharacter && PlayerCharacter->CurrentHealth < PlayerCharacter->MaxHealth)

@@ -13,7 +13,7 @@ class ATeleportConstruct;
 class ARampBase;
 class ATrapBase;
 class ABuildableBase;
-class ATimberBuildingComponentBase;
+class ADieRobotBuildingComponentBase;
 
 /*
  * Struct used for Trap Placement auto orientation.
@@ -223,7 +223,7 @@ private:
 
 	/* Used to create Struct required for Trap Transformation */
 	FBuildablePlacementData GetTrapSnapTransform(
-		FVector ImpactPoint, ATimberBuildingComponentBase*
+		FVector ImpactPoint, ADieRobotBuildingComponentBase*
 		BuildingComponent, ATrapBase* TrapComponentProxy);
 
 	/* Returns the Closest Snap point to the Hit Result on the Hovered Buildable*/

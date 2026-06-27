@@ -2,19 +2,19 @@
 
 
 #include "Components/BuildSystem/BuildSystemManagerComponent.h"
-#include "BuildSystem/BuildingComponents/TimberBuildingComponentBase.h"
-#include "BuildSystem/BuildingComponents/TimberHorizontalBuildingComponent.h"
-#include "BuildSystem/BuildingComponents/TimberVerticalBuildingComponent.h"
+#include "BuildSystem/BuildingComponents/DieRobotBuildingComponentBase.h"
+#include "BuildSystem/BuildingComponents/DieRobotHorizontalBuildingComponent.h"
+#include "BuildSystem/BuildingComponents/DieRobotVerticalBuildingComponent.h"
 #include "BuildSystem/Traps/TrapBase.h"
 #include "BuildSystem/BuildableBase.h"
 #include "BuildSystem/Constructs/PowerPlate.h"
 #include "BuildSystem/Constructs/TeleportConstruct.h"
 #include "BuildSystem/Ramps/RampBase.h"
-#include "Character/TimberPlayableCharacter.h"
-#include "Character/TimberSeeda.h"
+#include "Character/DieRobotPlayableCharacter.h"
+#include "Character/DieRobotSeeda.h"
 #include "Components/BoxComponent.h"
 #include "Components/Inventory/InventoryManagerComponent.h"
-#include "Controller/TimberPlayerController.h"
+#include "Controller/DieRobotPlayerController.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "States/DieRobotGameStateBase.h"
 #include "Subsystems/Events/MissionEventSubsystem.h"
@@ -33,9 +33,9 @@ void UBuildSystemManagerComponent::BeginPlay()
 
 void UBuildSystemManagerComponent::HandleBuildingComponentSnapping(FHitResult HitResult)
 {
-	if (ATimberBuildingComponentBase* BuildingComponentProxy = Cast<ATimberBuildingComponentBase>(BuildableProxyInstance))
+	if (ADieRobotBuildingComponentBase* BuildingComponentProxy = Cast<ADieRobotBuildingComponentBase>(BuildableProxyInstance))
 	{
-		if (HitResult.GetActor()->IsA(ATimberBuildingComponentBase::StaticClass()) && HitResult.GetComponent())
+		if (HitResult.GetActor()->IsA(ADieRobotBuildingComponentBase::StaticClass()) && HitResult.GetComponent())
 		{
 			//Gets Proxy Building Component Enum Orientation (Horizontal/Vertical)(Wall/Floor)
 			const EBuildingComponentOrientation ProxyBuildingComponentOrientation = BuildingComponentProxy->BuildingOrientation;
@@ -135,7 +135,7 @@ void UBuildSystemManagerComponent::SameOrientationSnapCondition(FHitResult HitRe
 	FVector ProxySnapLocation;
 	FVector HitActorSnapLocation;
 
-	ATimberBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ATimberBuildingComponentBase>(BuildableProxyInstance);
+	ADieRobotBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ADieRobotBuildingComponentBase>(BuildableProxyInstance);
 
 	/*Returns in int based on the Name of the Quadrant
 	 * "TopQuadrant" = 1
@@ -150,28 +150,28 @@ void UBuildSystemManagerComponent::SameOrientationSnapCondition(FHitResult HitRe
 	{
 	case 1: //Top
 		{
-			HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->TopSnap->GetComponentTransform().GetLocation();
+			HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->TopSnap->GetComponentTransform().GetLocation();
 			ProxySnapLocation = ActiveBuildingComponentProxy->BottomSnap->GetComponentTransform().GetLocation();
 			MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
 		}
 		break;
 	case 2: //Right
 		{
-			HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->RightSnap->GetComponentTransform().GetLocation();
+			HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->RightSnap->GetComponentTransform().GetLocation();
 			ProxySnapLocation = ActiveBuildingComponentProxy->LeftSnap->GetComponentTransform().GetLocation();
 			MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
 		}
 		break;
 	case 3: //Bottom
 		{
-			HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->BottomSnap->GetComponentTransform().GetLocation();
+			HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->BottomSnap->GetComponentTransform().GetLocation();
 			ProxySnapLocation = ActiveBuildingComponentProxy->TopSnap->GetComponentTransform().GetLocation();
 			MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
 		}
 		break;
 	case 4: //Left
 		{
-			HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->LeftSnap->GetComponentTransform().GetLocation();
+			HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->LeftSnap->GetComponentTransform().GetLocation();
 			ProxySnapLocation = ActiveBuildingComponentProxy->RightSnap->GetComponentTransform().GetLocation();
 			MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
 		}
@@ -196,14 +196,14 @@ void UBuildSystemManagerComponent::VerticalToHorizontalSnapCondition(FHitResult 
 	//FRotator HitActorSnapRotation;
 	FVector ProxySnapLocation;
 
-	ATimberBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ATimberBuildingComponentBase>(BuildableProxyInstance);
+	ADieRobotBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ADieRobotBuildingComponentBase>(BuildableProxyInstance);
 	switch (QuadrantConditionNum)
 	{
 		case 1:
 			{
 				//Bottom Vertical SnapPoint -> Top Quad on Horizontal
-				HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->TopSnap->GetComponentTransform().GetLocation();
-				//HitActorSnapRotation = Cast<ATimberBuildingComponentBase>(HitActor.GetActor())->TopSnap->GetComponentTransform().GetRotation().Rotator();
+				HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->TopSnap->GetComponentTransform().GetLocation();
+				//HitActorSnapRotation = Cast<ADieRobotBuildingComponentBase>(HitActor.GetActor())->TopSnap->GetComponentTransform().GetRotation().Rotator();
 				ProxySnapLocation = ActiveBuildingComponentProxy->BottomSnap->GetComponentTransform().GetLocation();
 				MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
 			}
@@ -211,8 +211,8 @@ void UBuildSystemManagerComponent::VerticalToHorizontalSnapCondition(FHitResult 
 		case 2:
 			{
 				//Bottom Vertical SnapPoint -> Right Quad on Horizontal
-				HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->RightSnap->GetComponentTransform().GetLocation();
-				//HitActorSnapRotation = Cast<ATimberBuildingComponentBase>(HitActor.GetActor())->RightSnap->GetComponentTransform().GetRotation().Rotator();
+				HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->RightSnap->GetComponentTransform().GetLocation();
+				//HitActorSnapRotation = Cast<ADieRobotBuildingComponentBase>(HitActor.GetActor())->RightSnap->GetComponentTransform().GetRotation().Rotator();
 				ProxySnapLocation = ActiveBuildingComponentProxy->BottomSnap->GetComponentTransform().GetLocation();
 				MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
 			}
@@ -220,8 +220,8 @@ void UBuildSystemManagerComponent::VerticalToHorizontalSnapCondition(FHitResult 
 		case 3:
 			{
 				//Bottom Vertical SnapPoint -> Bottom Quad on Horizontal
-				HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->BottomSnap->GetComponentTransform().GetLocation();
-				//HitActorSnapRotation = Cast<ATimberBuildingComponentBase>(HitActor.GetActor())->BottomSnap->GetComponentTransform().GetRotation().Rotator();
+				HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->BottomSnap->GetComponentTransform().GetLocation();
+				//HitActorSnapRotation = Cast<ADieRobotBuildingComponentBase>(HitActor.GetActor())->BottomSnap->GetComponentTransform().GetRotation().Rotator();
 				ProxySnapLocation = ActiveBuildingComponentProxy->BottomSnap->GetComponentTransform().GetLocation();
 				MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
 			}
@@ -229,8 +229,8 @@ void UBuildSystemManagerComponent::VerticalToHorizontalSnapCondition(FHitResult 
 		case 4:
 			{
 				//Bottom Vertical SnapPoint -> Left Quad on Horizontal
-				HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->LeftSnap->GetComponentTransform().GetLocation();
-				//HitActorSnapRotation = Cast<ATimberBuildingComponentBase>(HitActor.GetActor())->LeftSnap->GetComponentTransform().GetRotation().Rotator();
+				HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->LeftSnap->GetComponentTransform().GetLocation();
+				//HitActorSnapRotation = Cast<ADieRobotBuildingComponentBase>(HitActor.GetActor())->LeftSnap->GetComponentTransform().GetRotation().Rotator();
 				ProxySnapLocation = ActiveBuildingComponentProxy->BottomSnap->GetComponentTransform().GetLocation();
 				MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
 			}
@@ -238,8 +238,8 @@ void UBuildSystemManagerComponent::VerticalToHorizontalSnapCondition(FHitResult 
 		case 5:
 			{
 				//Bottom Vertical SnapPoint -> Center Quad on Horizontal
-				HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->CenterSnap->GetComponentTransform().GetLocation();
-				//HitActorSnapRotation = Cast<ATimberBuildingComponentBase>(HitActor.GetActor())->CenterSnap->GetComponentTransform().GetRotation().Rotator();
+				HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->CenterSnap->GetComponentTransform().GetLocation();
+				//HitActorSnapRotation = Cast<ADieRobotBuildingComponentBase>(HitActor.GetActor())->CenterSnap->GetComponentTransform().GetRotation().Rotator();
 				ProxySnapLocation = ActiveBuildingComponentProxy->BottomSnap->GetComponentTransform().GetLocation();
 				MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
 				//No Snap Rotation, Player will Rotate on their own.
@@ -257,14 +257,14 @@ void UBuildSystemManagerComponent::HorizontalToVerticalSnapCondition(FHitResult 
 	int QuadrantCondition1 = QuadrantCondition(HitResult.GetComponent()->GetName());
 	FVector HitActorSnapLocation;
 	FVector ProxySnapLocation;
-	ATimberBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ATimberBuildingComponentBase>(BuildableProxyInstance);
+	ADieRobotBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ADieRobotBuildingComponentBase>(BuildableProxyInstance);
 
 	switch (QuadrantCondition1)
 	{
 	case 1:
 		{
 			//Bottom Vertical SnapPoint -> Top Quad on Horizontal
-			HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())->TopSnap->
+			HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())->TopSnap->
 				GetComponentTransform().GetLocation();
 			ProxySnapLocation = ActiveBuildingComponentProxy->TopSnap->GetComponentTransform().GetLocation();
 			MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
@@ -273,7 +273,7 @@ void UBuildSystemManagerComponent::HorizontalToVerticalSnapCondition(FHitResult 
 	case 3:
 		{
 			//Bottom Vertical SnapPoint -> Top Quad on Horizontal
-			HitActorSnapLocation = Cast<ATimberBuildingComponentBase>(HitResult.GetActor())
+			HitActorSnapLocation = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor())
 			                       ->BottomSnap->GetComponentTransform().GetLocation();
 			ProxySnapLocation = ActiveBuildingComponentProxy->TopSnap->GetComponentTransform().GetLocation();
 			MoveBuildingComponentProxyToSnapLocation(ProxySnapLocation, HitActorSnapLocation);
@@ -288,7 +288,7 @@ void UBuildSystemManagerComponent::HorizontalToVerticalSnapCondition(FHitResult 
 void UBuildSystemManagerComponent::MoveBuildingComponentProxyToSnapLocation(FVector ProxySnapLocation, FVector SnapLocation)
 {
 	/*Handles Movement of the Buildable*/
-	ATimberBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ATimberBuildingComponentBase>(BuildableProxyInstance);
+	ADieRobotBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ADieRobotBuildingComponentBase>(BuildableProxyInstance);
 	//Getting Vector Between 2 assumed Snap Points.
 	FVector MoveLocation = SnapLocation - ProxySnapLocation;
 	FVector CurrentLocation = ActiveBuildingComponentProxy->GetActorLocation();
@@ -296,11 +296,11 @@ void UBuildSystemManagerComponent::MoveBuildingComponentProxyToSnapLocation(FVec
 	//Moving Actor the MoveLocation distance from the Current Location.
 	ActiveBuildingComponentProxy->SetActorLocation(CurrentLocation + MoveLocation);
 	FQuat Offset;
-	if (ActiveBuildingComponentProxy->IsA(ATimberVerticalBuildingComponent::StaticClass()))
+	if (ActiveBuildingComponentProxy->IsA(ADieRobotVerticalBuildingComponent::StaticClass()))
 	{
 		Offset = FQuat(FVector(0, 0, 1), FMath::DegreesToRadians(90));
 	}
-	else if (ActiveBuildingComponentProxy->IsA(ATimberHorizontalBuildingComponent::StaticClass()))
+	else if (ActiveBuildingComponentProxy->IsA(ADieRobotHorizontalBuildingComponent::StaticClass()))
 	{
 		Offset = FQuat(FVector(1, 0, 0), FMath::DegreesToRadians(90));
 	}
@@ -313,7 +313,7 @@ void UBuildSystemManagerComponent::MoveBuildingComponentProxyToSnapLocation(FVec
 	 * Used for the Box we are using to check overlaps.
 	 */
 	FVector WorldLocation = ActiveBuildingComponentProxy->GetActorTransform().TransformPosition(MoveLocation);
-	if (Cast<ATimberVerticalBuildingComponent>(ActiveBuildingComponentProxy))
+	if (Cast<ADieRobotVerticalBuildingComponent>(ActiveBuildingComponentProxy))
 	{
 		WorldLocation.Z += 200.0f;
 	}
@@ -374,7 +374,7 @@ void UBuildSystemManagerComponent::MoveBuildingComponentProxyToSnapLocation(FVec
 			UPrimitiveComponent* Component = Hit.GetComponent();
 			//UE_LOG(LogTemp, Warning, TEXT("Proxy Overlap Component Hit: %s"), *Component->GetName());
 			UStaticMeshComponent* Mesh = Cast<UStaticMeshComponent>(Component);
-			if (Hit.GetActor()->IsA(ATimberSeeda::StaticClass()) || Hit.GetActor()->IsA(ATimberCharacterBase::StaticClass()))
+			if (Hit.GetActor()->IsA(ADieRobotSeeda::StaticClass()) || Hit.GetActor()->IsA(ADieRobotCharacterBase::StaticClass()))
 			{
 				if (Mesh) //if the Hit Component is Static Mesh Component
 				{
@@ -412,11 +412,11 @@ void UBuildSystemManagerComponent::MoveBuildingComponentProxyToSnapLocation(FVec
 
 EBuildingComponentOrientation UBuildSystemManagerComponent::CheckClassBuildingComponentOrientation(AActor* ClassToBeChecked)
 {
-	if (const ATimberVerticalBuildingComponent* VBC = Cast<ATimberVerticalBuildingComponent>(ClassToBeChecked))
+	if (const ADieRobotVerticalBuildingComponent* VBC = Cast<ADieRobotVerticalBuildingComponent>(ClassToBeChecked))
 	{
 		return VBC->BuildingOrientation;
 	}
-	if (const ATimberHorizontalBuildingComponent* HBC = Cast<ATimberHorizontalBuildingComponent>(ClassToBeChecked))
+	if (const ADieRobotHorizontalBuildingComponent* HBC = Cast<ADieRobotHorizontalBuildingComponent>(ClassToBeChecked))
 	{
 		return HBC->BuildingOrientation;
 	}
@@ -535,10 +535,10 @@ void UBuildSystemManagerComponent::MakeMaterialHoloColor(AActor* BuildingCompone
 
 void UBuildSystemManagerComponent::AddToBuildableAttachments(ABuildableBase* AttachingBuildable)
 {
-	ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(GetOwner());
+	ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(GetOwner());
 	if (PlayerCharacter && PlayerCharacter->HoveredBuildingComponent && AttachingBuildable)
 	{
-		ATimberBuildingComponentBase* BuildingComponentBase = Cast<ATimberBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent);
+		ADieRobotBuildingComponentBase* BuildingComponentBase = Cast<ADieRobotBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent);
 		if (BuildingComponentBase)
 		{
 			BuildingComponentBase->AttachedBuildingComponents.Add(AttachingBuildable);
@@ -551,7 +551,7 @@ void UBuildSystemManagerComponent::SpawnFinalBuildable()
 	if(ActiveBuildableComponentClass && BuildableProxyInstance)
 	{
 		// If a player can afford the transaction, apply the transaction and spawn the final building component.
-		if (ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(GetOwner()))
+		if (ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(GetOwner()))
 		{
 			if(PlayerCharacter->InventoryManager && PlayerCharacter->InventoryManager->bCanAffordCost(BuildableProxyInstance->BuildableCost))
 			{
@@ -637,7 +637,7 @@ void UBuildSystemManagerComponent::SpawnFinalRampBuildable(FActorSpawnParameters
 			//Build Event Subsystem 
 			SendBuildEventPayload(SpawnedActor);
 
-			if (TObjectPtr<ATimberPlayableCharacter> Player = Cast<ATimberPlayableCharacter>(GetOwner()))
+			if (TObjectPtr<ADieRobotPlayableCharacter> Player = Cast<ADieRobotPlayableCharacter>(GetOwner()))
 			{
 				Player->InventoryManager->bHandleBuildableTransaction(BuildableProxyInstance->BuildableCost);
 			}
@@ -710,7 +710,7 @@ void UBuildSystemManagerComponent::SpawnFinalCenterSnapBuildable(FActorSpawnPara
 			//Build Event Subsystem 
 			SendBuildEventPayload(SpawnedActor);
 
-			if (TObjectPtr<ATimberPlayableCharacter> Player = Cast<ATimberPlayableCharacter>(GetOwner()))
+			if (TObjectPtr<ADieRobotPlayableCharacter> Player = Cast<ADieRobotPlayableCharacter>(GetOwner()))
 			{
 				Player->InventoryManager->bHandleBuildableTransaction(BuildableProxyInstance->BuildableCost);
 			}
@@ -727,7 +727,7 @@ void UBuildSystemManagerComponent::SpawnFinalCenterSnapBuildable(FActorSpawnPara
 
 void UBuildSystemManagerComponent::SpawnFinalBuildingComponent(FActorSpawnParameters SpawnParameters)
 {
-	ATimberBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ATimberBuildingComponentBase>(BuildableProxyInstance);
+	ADieRobotBuildingComponentBase* ActiveBuildingComponentProxy = Cast<ADieRobotBuildingComponentBase>(BuildableProxyInstance);
 	//Use the InputTransform as the Location to Spawn the ActiveBuildingComponent
 	if(ActiveBuildableComponentClass && ActiveBuildingComponentProxy && ActiveBuildingComponentProxy->bCanBuildableBeFinalized)
 	{
@@ -748,7 +748,7 @@ void UBuildSystemManagerComponent::SpawnFinalBuildingComponent(FActorSpawnParame
 			//Build Event Subsystem 
 			SendBuildEventPayload(SpawnedActor);
 
-			if (TObjectPtr<ATimberPlayableCharacter> Player = Cast<ATimberPlayableCharacter>(GetOwner()))
+			if (TObjectPtr<ADieRobotPlayableCharacter> Player = Cast<ADieRobotPlayableCharacter>(GetOwner()))
 			{
 				Player->InventoryManager->bHandleBuildableTransaction(BuildableProxyInstance->BuildableCost);
 			}
@@ -780,10 +780,10 @@ void UBuildSystemManagerComponent::SpawnFinalFloorEdgeSnapTopOnlyBuildable(FActo
 		if (ABuildableBase* SpawnedBuildable = Cast<ABuildableBase>(SpawnedActor))
 		{
 			//Attaching EdgeSnapBuildable to the Player Character Hovered Building Component, when Destroyed Teleporter handles destruction of its own pair.
-			ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(GetOwner());
+			ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(GetOwner());
 			if (IsValid(PlayerCharacter) && IsValid(PlayerCharacter->HoveredBuildingComponent))
 			{
-				SpawnedBuildable->ParentBuildable = Cast<ATimberBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent);
+				SpawnedBuildable->ParentBuildable = Cast<ADieRobotBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent);
 			}
 		}
 
@@ -833,19 +833,19 @@ void UBuildSystemManagerComponent::SpawnFinalFloorCenterSnapTopOnlyBuildable(FAc
 			 * Attaching the Buildable to the Building Component Slot
 			 * Lets the player know that another Buildable can not be placed in this slot.
 			 */
-			ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(GetOwner());
+			ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(GetOwner());
 			if (PlayerCharacter && IsValid(PlayerCharacter->HoveredBuildingComponent))
 			{
-				if (ATimberBuildingComponentBase* BuildingComponent = Cast<ATimberBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent))
+				if (ADieRobotBuildingComponentBase* BuildingComponent = Cast<ADieRobotBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent))
 				{
 					BuildingComponent->FrontCenterAttachment = Cast<ABuildableBase>(SpawnedActor);
 					//UE_LOG(LogTemp, Warning, TEXT("Construct set on FrontTrapSnap Slot."))
 					APowerPlate* PowerPlate = Cast<APowerPlate>(SpawnedActor);
 
 					//Setting the parent floor component on this actor, so we can free up slot during deletion.
-					if (PowerPlate && Cast<ATimberBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent))
+					if (PowerPlate && Cast<ADieRobotBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent))
 					{
-						PowerPlate->ParentBuildable = Cast<ATimberBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent);
+						PowerPlate->ParentBuildable = Cast<ADieRobotBuildingComponentBase>(PlayerCharacter->HoveredBuildingComponent);
 					}
 				}
 			}
@@ -853,7 +853,7 @@ void UBuildSystemManagerComponent::SpawnFinalFloorCenterSnapTopOnlyBuildable(FAc
 			AddToBuildableAttachments(Cast<ABuildableBase>(SpawnedActor));
 			PlayBuildablePlacementSound();
 			SendBuildEventPayload(SpawnedActor);
-			if (TObjectPtr<ATimberPlayableCharacter> Player = Cast<ATimberPlayableCharacter>(GetOwner()))
+			if (TObjectPtr<ADieRobotPlayableCharacter> Player = Cast<ADieRobotPlayableCharacter>(GetOwner()))
 			{
 				Player->InventoryManager->bHandleBuildableTransaction(BuildableProxyInstance->BuildableCost);
 			}
@@ -868,7 +868,7 @@ void UBuildSystemManagerComponent::SpawnFinalFloorCenterSnapTopOnlyBuildable(FAc
 
 void UBuildSystemManagerComponent::HandleIsTeleporter(ATeleportConstruct* TeleportConstruct)
 {
-	Cast<ATimberPlayableCharacter>(GetOwner())->InventoryManager->bHandleBuildableTransaction(BuildableProxyInstance->BuildableCost);
+	Cast<ADieRobotPlayableCharacter>(GetOwner())->InventoryManager->bHandleBuildableTransaction(BuildableProxyInstance->BuildableCost);
 
 	//Handle Pairing - BSM
 	//This is in the BuildSystemManager's Memory of the Teleport Construct Pair
@@ -938,7 +938,7 @@ void UBuildSystemManagerComponent::GenerateBuildEventsContextTags(FGameplayTagCo
 {
 	if (Buildable)
 	{
-		if (Buildable.IsA(ATimberBuildingComponentBase::StaticClass()))
+		if (Buildable.IsA(ADieRobotBuildingComponentBase::StaticClass()))
 		{
 			TagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName("Event.Build.Placed.Structure")));
 		}
@@ -993,7 +993,7 @@ void UBuildSystemManagerComponent::DisableBuildableProxyCollisions(ABuildableBas
 USceneComponent* UBuildSystemManagerComponent::GetClosestFaceSnapPoint(FHitResult HitResult)
 {
 	FVector ImpactPointLocation = HitResult.ImpactPoint;
-	ATimberBuildingComponentBase* BuildingComponent = Cast<ATimberBuildingComponentBase>(HitResult.GetActor());
+	ADieRobotBuildingComponentBase* BuildingComponent = Cast<ADieRobotBuildingComponentBase>(HitResult.GetActor());
 	if (BuildingComponent)
 	{
 		FVector BackCenterSnapLocation  = BuildingComponent->BackCenterSnapPoint->GetComponentLocation();
@@ -1013,12 +1013,12 @@ USceneComponent* UBuildSystemManagerComponent::GetClosestFaceSnapPoint(FHitResul
 void UBuildSystemManagerComponent::BroadcastControllerUpdateNewBuildable(AActor* Buildable)
 {
 	ABuildableBase* CastBuildable = Cast<ABuildableBase>(Buildable);
-	ATimberPlayableCharacter* PlayerCharacter = Cast<ATimberPlayableCharacter>(GetOwner());
+	ADieRobotPlayableCharacter* PlayerCharacter = Cast<ADieRobotPlayableCharacter>(GetOwner());
 	
 	if (IsValid(PlayerCharacter) && IsValid(CastBuildable))
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Changed Buildable Name: %s"), *CastBuildable->GetName());
-		ATimberPlayerController* PC = PlayerCharacter->GetController<ATimberPlayerController>();
+		ADieRobotPlayerController* PC = PlayerCharacter->GetController<ADieRobotPlayerController>();
 		if (IsValid(PC))
 		{
 			//Used for Enemy to Update Path.
@@ -1038,12 +1038,12 @@ void UBuildSystemManagerComponent::HandleBuildingComponentPlacement(FHitResult F
 {
 	if (!BuildableProxyInstance) return;
 
-	ATimberBuildingComponentBase* FirstHitBuildingComponent = Cast<ATimberBuildingComponentBase>(FirstHitBuildingComponentHitResult.GetActor());
+	ADieRobotBuildingComponentBase* FirstHitBuildingComponent = Cast<ADieRobotBuildingComponentBase>(FirstHitBuildingComponentHitResult.GetActor());
 	
 	//Ensures floors are not placed on Environment Buildable.
-	if (BuildableProxyInstance->IsA(ATimberHorizontalBuildingComponent::StaticClass()))
+	if (BuildableProxyInstance->IsA(ADieRobotHorizontalBuildingComponent::StaticClass()))
 	{
-		if (ATimberHorizontalBuildingComponent* FloorComponent = Cast<ATimberHorizontalBuildingComponent>(BuildableProxyInstance))
+		if (ADieRobotHorizontalBuildingComponent* FloorComponent = Cast<ADieRobotHorizontalBuildingComponent>(BuildableProxyInstance))
 		{
 			//Ensures we don't place a floor structure on an environment type structure
 			if (FirstHitBuildingComponent && FirstHitBuildingComponent->BuildingComponentType == EBuildingComponentType::Environment)
@@ -1124,7 +1124,7 @@ void UBuildSystemManagerComponent::RemoveBuildingComponentProxies_All()
 	}
 	if (GEngine)
 	{
-		//GEngine->AddOnScreenDebugMessage(3, 5.0f, FColor::Green, "ATimberPlayableCharacter::ExitBuildMode() : Building Component Proxy Removed. ");
+		//GEngine->AddOnScreenDebugMessage(3, 5.0f, FColor::Green, "ADieRobotPlayableCharacter::ExitBuildMode() : Building Component Proxy Removed. ");
 	}
 }
 
@@ -1137,7 +1137,7 @@ void UBuildSystemManagerComponent::ClearTeleporterTPair()
 		{
 			TeleportConstructAlpha->SpawnLoot();
 			
-			if (TObjectPtr<ATimberBuildingComponentBase> BC = Cast<ATimberBuildingComponentBase>(TeleportConstructAlpha->ParentBuildable))
+			if (TObjectPtr<ADieRobotBuildingComponentBase> BC = Cast<ADieRobotBuildingComponentBase>(TeleportConstructAlpha->ParentBuildable))
 			{
 				if(BC->AttachedBuildingComponents.Contains(TeleportConstructAlpha))
 				{
@@ -1237,7 +1237,7 @@ FHitResult UBuildSystemManagerComponent::FirstHitBuildingComponentHitResult(TArr
 	FHitResult FirstHitBuildingComponentHitResult;
 	for (FHitResult Hit : HitResults)
 	{
-		if (Cast<ATimberBuildingComponentBase>(Hit.GetActor()) && Hit.GetActor() != BuildableProxyInstance)
+		if (Cast<ADieRobotBuildingComponentBase>(Hit.GetActor()) && Hit.GetActor() != BuildableProxyInstance)
 		{
 			FirstHitBuildingComponentHitResult = Hit;
 			return FirstHitBuildingComponentHitResult;
@@ -1268,7 +1268,7 @@ void UBuildSystemManagerComponent::HandleProxyPlacement(TArray<FHitResult> HitRe
 	/*
 	 * GATHERING FIRST HIT BUILDING COMPONENT Hit Result
 	 */
-	//ATimberBuildingComponentBase* FirstHitBuildingComponent = FindFirstHitBuildingComponent(HitResults);
+	//ADieRobotBuildingComponentBase* FirstHitBuildingComponent = FindFirstHitBuildingComponent(HitResults);
 	FHitResult BuildingComponentHitResult = FirstHitBuildingComponentHitResult(HitResults);
 	
 	/*
@@ -1313,7 +1313,7 @@ void UBuildSystemManagerComponent::HandleCenterSnapPlacement(FHitResult FirstHit
 	 * Traps that mount Center but can be applied to both sides of wall/floor.
 	 * Ex. Spike Trap, Frost Trap, Electro Pulse.
 	 */
-	ATimberBuildingComponentBase* BuildingComponent = Cast<ATimberBuildingComponentBase>(FirstHitBuildingComponentHitResult.GetActor());
+	ADieRobotBuildingComponentBase* BuildingComponent = Cast<ADieRobotBuildingComponentBase>(FirstHitBuildingComponentHitResult.GetActor());
 	ATrapBase* ActiveCenterSnapBuildable = Cast<ATrapBase>(BuildableProxyInstance);
 	
 	if (ActiveCenterSnapBuildable)
@@ -1372,7 +1372,7 @@ void UBuildSystemManagerComponent::HandleCenterSnapPlacement(FHitResult FirstHit
 void UBuildSystemManagerComponent::HandleFloorCenterSnapTopOnlyPlacement(FHitResult FirstHitBuildingComponentHitResult)
 {
 	
-	ATimberHorizontalBuildingComponent* FloorComponent = Cast<ATimberHorizontalBuildingComponent>(FirstHitBuildingComponentHitResult.GetActor());
+	ADieRobotHorizontalBuildingComponent* FloorComponent = Cast<ADieRobotHorizontalBuildingComponent>(FirstHitBuildingComponentHitResult.GetActor());
 	if (FloorComponent)
 	{
 		//Checking for finalization - if Building Component already has something in Snap Slot.
@@ -1405,7 +1405,7 @@ void UBuildSystemManagerComponent::HandleFloorEdgeSnapTopOnlyPlacement(FHitResul
 	 * Teleporter
 	 */
 	
-	if (ATimberHorizontalBuildingComponent* FloorComponent = Cast<ATimberHorizontalBuildingComponent>(FirstHitBuildingComponentHitResult.GetActor()))
+	if (ADieRobotHorizontalBuildingComponent* FloorComponent = Cast<ADieRobotHorizontalBuildingComponent>(FirstHitBuildingComponentHitResult.GetActor()))
 	{
 		/* Getting Top Snap Points */
 		TArray<USceneComponent*> AllSceneComponents;
@@ -1470,7 +1470,7 @@ void UBuildSystemManagerComponent::HandleFloorEdgeSnapTopOnlyPlacement(FHitResul
 
 void UBuildSystemManagerComponent::HandleRampPlacement(FHitResult FirstHitBuildingComponentHitResult)
 {
-	ATimberBuildingComponentBase* BuildingComponent = Cast<ATimberBuildingComponentBase>(FirstHitBuildingComponentHitResult.GetActor());
+	ADieRobotBuildingComponentBase* BuildingComponent = Cast<ADieRobotBuildingComponentBase>(FirstHitBuildingComponentHitResult.GetActor());
 	ARampBase* ActiveRampComponentProxy = Cast<ARampBase>(BuildableProxyInstance);
 	
 	if (ActiveRampComponentProxy)
@@ -1526,7 +1526,7 @@ void UBuildSystemManagerComponent::HandleRampPlacement(FHitResult FirstHitBuildi
 	}
 }
 
-FBuildablePlacementData UBuildSystemManagerComponent::GetTrapSnapTransform(FVector ImpactPoint, ATimberBuildingComponentBase* BuildingComponent, ATrapBase* TrapComponentProxy)
+FBuildablePlacementData UBuildSystemManagerComponent::GetTrapSnapTransform(FVector ImpactPoint, ADieRobotBuildingComponentBase* BuildingComponent, ATrapBase* TrapComponentProxy)
 {
 	// Default Snap Data is facing the player at the impact point
 	FBuildablePlacementData TrapSnapData;

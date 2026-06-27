@@ -7,9 +7,9 @@
 #include "Task_MoveThroughCorridorPath.generated.h"
 
 class UPathFollowingComponent;
-class ATimberAiControllerBase;
+class ADieRobotAiControllerBase;
 struct FPathFollowingResult;
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 /**
  * 
  */
@@ -54,7 +54,7 @@ private:
 	UBehaviorTreeComponent* BehaviorTreeComponent = nullptr;
 
 	UPROPERTY()
-	ATimberAiControllerBase* AIControllerBase = nullptr;
+	ADieRobotAiControllerBase* AIControllerBase = nullptr;
 
 	UPROPERTY()
 	UPathFollowingComponent* PathFollowingComponent = nullptr;

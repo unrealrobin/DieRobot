@@ -8,7 +8,7 @@
 #include "LabDoorBase.generated.h"
 
 struct FTimeline;
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 class UBoxComponent;
 
 UCLASS()

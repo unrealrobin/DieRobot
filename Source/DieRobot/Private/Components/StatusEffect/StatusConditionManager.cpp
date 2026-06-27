@@ -4,7 +4,7 @@
 #include "Components/StatusEffect/StatusConditionManager.h"
 
 #include "NiagaraFunctionLibrary.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Data/DataAssets/StatusEffects/StatusEffectDefinition.h"
 #include "Subsystems/SynergySystem/SynergySystem.h"
@@ -64,7 +64,7 @@ void UStatusConditionManager::ResolveEffect(TArray<UStatusEffectDefinition*> Eff
 
 		if (bConditionMet)
 		{
-			if (ATimberEnemyCharacter* Enemy = Cast<ATimberEnemyCharacter>(Context.TargetActor))
+			if (ADieRobotEnemyCharacter* Enemy = Cast<ADieRobotEnemyCharacter>(Context.TargetActor))
 			{
 				if (!IsValid(Enemy)) return;
 				

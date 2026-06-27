@@ -6,7 +6,7 @@
 #include "BuildSystem/BuildableBase.h"
 #include "ConstructBase.generated.h"
 
-class ATimberBuildingComponentBase;
+class ADieRobotBuildingComponentBase;
 
 UCLASS()
 class DIEROBOT_API AConstructBase : public ABuildableBase

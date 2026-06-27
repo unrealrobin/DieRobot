@@ -2,7 +2,7 @@
 
 
 #include "DieRobot/Public/UI/FloatingData/FloatingDataContainer.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/WidgetComponent.h"
 #include "DieRobot/Public/UI/FloatingData/FloatingDataWidget.h"
 

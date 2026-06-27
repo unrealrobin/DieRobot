@@ -3,8 +3,8 @@
 
 #include "Weapons/Abilities/MeleeWeapon/ChargedSwing.h"
 
-#include "Character/TimberPlayableCharacter.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/SphereComponent.h"
 #include "Types/Combat/DamagePayload.h"
 
@@ -90,7 +90,7 @@ void UChargedSwing::HandleMontageEnded(UAnimMontage* Montage, bool bInterrupted)
 void UChargedSwing::HandleCollisionSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	ATimberEnemyCharacter* EnemyCharacter = Cast<ATimberEnemyCharacter>(OtherActor);
+	ADieRobotEnemyCharacter* EnemyCharacter = Cast<ADieRobotEnemyCharacter>(OtherActor);
 	UE_LOG(LogTemp, Warning, TEXT("Heavy Attack Collision Sphere Overlap Triggered."));
 	
 	if (ActorsToIgnore.Contains(OtherActor))

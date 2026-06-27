@@ -2,10 +2,10 @@
 
 #include "Components/Combat/CombatComponent.h"
 
-#include "Character/TimberAnimInstance.h"
-#include "Character/TimberPlayableCharacter.h"
-#include "Weapons/TimberWeaponMeleeBase.h"
-#include "Weapons/TimberWeaponRangedBase.h"
+#include "Character/DieRobotAnimInstance.h"
+#include "Character/DieRobotPlayableCharacter.h"
+#include "Weapons/DieRobotWeaponMeleeBase.h"
+#include "Weapons/DieRobotWeaponRangedBase.h"
 #include "Weapons/Abilities/WeaponAbilityBase.h"
 
 // Sets default values for this component's properties
@@ -69,7 +69,7 @@ EAbilityInputRequirement UCombatComponent::GetAbilityInputRequirement(bool bIsPr
 	
 }
 
-void UCombatComponent::SpawnWeaponAtSocketLocation(TSubclassOf<ATimberWeaponBase> WeaponClassToSpawn, FName SocketName)
+void UCombatComponent::SpawnWeaponAtSocketLocation(TSubclassOf<ADieRobotWeaponBase> WeaponClassToSpawn, FName SocketName)
 {
 	// Spawning and Attaching the Weapon to the Socket of Right Hand on Leeroy
 	FActorSpawnParameters SpawnParams;
@@ -84,7 +84,7 @@ void UCombatComponent::SpawnWeaponAtSocketLocation(TSubclassOf<ATimberWeaponBase
 		FRotator SocketWorldRotation = SocketWorldTransform.Rotator();
 		
 		//Spawn the Weapon
-		ATimberWeaponBase* SpawnedActor = GetWorld()->SpawnActor<ATimberWeaponBase>(
+		ADieRobotWeaponBase* SpawnedActor = GetWorld()->SpawnActor<ADieRobotWeaponBase>(
 			WeaponClassToSpawn,
 			SocketWorldLocation,
 			SocketWorldRotation,
@@ -93,12 +93,12 @@ void UCombatComponent::SpawnWeaponAtSocketLocation(TSubclassOf<ATimberWeaponBase
 		if (SpawnedActor)
 		{
 			//Not Actually UnEquipping were doing the Initial Socket Attachment to the Unequipped Slot.
-			if (ATimberWeaponRangedBase* SpawnedRangedWeapon = Cast<ATimberWeaponRangedBase>(SpawnedActor))
+			if (ADieRobotWeaponRangedBase* SpawnedRangedWeapon = Cast<ADieRobotWeaponRangedBase>(SpawnedActor))
 			{
 				RangedWeaponInstance = SpawnedRangedWeapon;
 				UnEquipWeapon(RangedWeaponInstance, UnEquippedRangeSocket);
 			}
-			else if (ATimberWeaponMeleeBase* SpawnedMeleeWeapon = Cast<ATimberWeaponMeleeBase>(SpawnedActor))
+			else if (ADieRobotWeaponMeleeBase* SpawnedMeleeWeapon = Cast<ADieRobotWeaponMeleeBase>(SpawnedActor))
 			{
 				MeleeWeaponInstance = SpawnedMeleeWeapon;
 				UnEquipWeapon(MeleeWeaponInstance, UnEquippedMeleeSocket);
@@ -164,7 +164,7 @@ FVector UCombatComponent::GetProjectileTargetLocation()
 	return FVector::ZeroVector;
 }
 
-void UCombatComponent::EquipWeapon(ATimberWeaponBase* WeaponInstance, FName EquippedWeaponSocketName)
+void UCombatComponent::EquipWeapon(ADieRobotWeaponBase* WeaponInstance, FName EquippedWeaponSocketName)
 {
 	if (WeaponInstance)
 	{
@@ -173,16 +173,16 @@ void UCombatComponent::EquipWeapon(ATimberWeaponBase* WeaponInstance, FName Equi
 
 		CurrentlyEquippedWeapon = WeaponInstance;
 
-		if (ATimberWeaponRangedBase* RangedWeapon = Cast<ATimberWeaponRangedBase>(CurrentlyEquippedWeapon))
+		if (ADieRobotWeaponRangedBase* RangedWeapon = Cast<ADieRobotWeaponRangedBase>(CurrentlyEquippedWeapon))
 		{
 			UpdateCurrentWeaponState(EOwnerWeaponState::RangedWeaponEquipped);
 
 			//Clean up of Reloading State during Ranged Equip.
 			RangedWeapon->bIsReloading = false;
-			Cast<UTimberAnimInstance>(OwningCharacter->GetMesh()->GetAnimInstance())->bIsReloading = false;
+			Cast<UDieRobotAnimInstance>(OwningCharacter->GetMesh()->GetAnimInstance())->bIsReloading = false;
 			bIsRifleEquipped = true;
 		}
-		else if (Cast<ATimberWeaponMeleeBase>(CurrentlyEquippedWeapon))
+		else if (Cast<ADieRobotWeaponMeleeBase>(CurrentlyEquippedWeapon))
 		{
 			UpdateCurrentWeaponState(EOwnerWeaponState::MeleeWeaponEquipped);
 			bIsMeleeEquipped = true;
@@ -203,7 +203,7 @@ void UCombatComponent::EquipWeapon(ATimberWeaponBase* WeaponInstance, FName Equi
 	}
 }
 
-void UCombatComponent::UnEquipWeapon(ATimberWeaponBase* WeaponInstance, FName UnEquipSocketName)
+void UCombatComponent::UnEquipWeapon(ADieRobotWeaponBase* WeaponInstance, FName UnEquipSocketName)
 {
 	//Place the Ranged Weapon on the Owners UnEquipped Ranged Socket Location
 	if (WeaponInstance)
@@ -276,7 +276,7 @@ void UCombatComponent::SendWeaponStateToOwnerAnimInstance()
 {
 	if (OwningCharacter && OwningCharacter->GetMesh()->GetAnimInstance())
 	{
-		if (UTimberAnimInstance* Anim = Cast<UTimberAnimInstance>(OwningCharacter->GetMesh()->GetAnimInstance()))
+		if (UDieRobotAnimInstance* Anim = Cast<UDieRobotAnimInstance>(OwningCharacter->GetMesh()->GetAnimInstance()))
 		{
 			//Anim Instance will handle what to do with that information.
 			Anim->UpdateOwnerWeaponState(CurrentWeaponState);
@@ -291,7 +291,7 @@ bool UCombatComponent::bHasEnoughPower(float AbilityCost, float CurrentWeaponPow
 	return HasEnoughPower;
 }
 
-void UCombatComponent::ConsumePower(ATimberWeaponBase* WeaponInstance, float AmountToConsume)
+void UCombatComponent::ConsumePower(ADieRobotWeaponBase* WeaponInstance, float AmountToConsume)
 {
 	if (WeaponInstance)
 	{
@@ -464,7 +464,7 @@ bool UCombatComponent::ValidatePowerWeaponAbility(const UWeaponAbilityBase* Abil
 	}
 
 	//Time Between Projectiles Firing isn't complete?
-	ATimberWeaponRangedBase* RangedWeapon = Cast<ATimberWeaponRangedBase>(CurrentlyEquippedWeapon);
+	ADieRobotWeaponRangedBase* RangedWeapon = Cast<ADieRobotWeaponRangedBase>(CurrentlyEquippedWeapon);
 	if (RangedWeapon)
 	{
 		if (AbilityToValidate->bNeedsProjectileData)
@@ -488,7 +488,7 @@ void UCombatComponent::ReloadRangedWeapon()
 			return;
 		}
 		
-		if (UTimberAnimInstance* Anim = Cast<UTimberAnimInstance>(OwningCharacter->GetMesh()->GetAnimInstance()))
+		if (UDieRobotAnimInstance* Anim = Cast<UDieRobotAnimInstance>(OwningCharacter->GetMesh()->GetAnimInstance()))
 		{
 			if (!RangedWeaponInstance->bIsReloading && !Anim->bIsReloading)
 			{
@@ -574,7 +574,7 @@ FAbilityContext UCombatComponent::GenerateCurrentAbilityContext(const FInputActi
 
 bool UCombatComponent::ValidateNoResourceCostAbility(const UWeaponAbilityBase* WeaponAbilityBase)
 {
-	if (ATimberWeaponMeleeBase* MeleeWeapon = Cast<ATimberWeaponMeleeBase>(CurrentlyEquippedWeapon))
+	if (ADieRobotWeaponMeleeBase* MeleeWeapon = Cast<ADieRobotWeaponMeleeBase>(CurrentlyEquippedWeapon))
 	{
 		// Is fully Equipped?
 		if (MeleeWeapon && bIsMeleeEquipped)

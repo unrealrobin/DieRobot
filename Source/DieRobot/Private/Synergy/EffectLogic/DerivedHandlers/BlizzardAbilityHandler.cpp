@@ -3,7 +3,7 @@
 
 #include "Synergy/EffectLogic/DerivedHandlers/BlizzardAbilityHandler.h"
 
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/StatusEffect/StatusEffectHandlerComponent.h"
 
 UBlizzardAbilityHandler::UBlizzardAbilityHandler()
@@ -21,7 +21,7 @@ void UBlizzardAbilityHandler::ExecuteEffect(AActor* TargetActor,
 	for (AActor* ActorInRadius : ActorsInRadius)
 	{
 		//Apply Freeze Effect.
-		if (ATimberEnemyCharacter* Enemy = Cast<ATimberEnemyCharacter>(ActorInRadius))
+		if (ADieRobotEnemyCharacter* Enemy = Cast<ADieRobotEnemyCharacter>(ActorInRadius))
 		{
 			if (IsValid(Enemy))
 			{

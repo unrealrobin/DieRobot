@@ -2,7 +2,7 @@
 
 
 #include "BuildSystem/Constructs/TeleportConstruct.h"
-#include "Character/TimberPlayableCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -27,8 +27,8 @@ void ATeleportConstruct::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerCharacter = Cast<ATimberPlayableCharacter>(UGameplayStatics::GetActorOfClass(GetWorld(), 
-	ATimberPlayableCharacter::StaticClass()));
+	PlayerCharacter = Cast<ADieRobotPlayableCharacter>(UGameplayStatics::GetActorOfClass(GetWorld(), 
+	ADieRobotPlayableCharacter::StaticClass()));
 	//UE_LOG(LogTemp, Warning, TEXT("Begin Play Teleporter GUID: %s"), *BuildSystemGUID.ToString());
 
 	GetWorld()->GetTimerManager().SetTimerForNextTick([this]()
@@ -75,7 +75,7 @@ void ATeleportConstruct::HandleTeleportOverlap(
 	bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Overlapped Teleporter."));
-	ATimberPlayableCharacter* Player = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* Player = Cast<ADieRobotPlayableCharacter>(OtherActor);
 	if (Player && TeleportPair)
 	{
 		PlayerToTeleport = Player;
@@ -92,7 +92,7 @@ void ATeleportConstruct::HandleTeleportHit(
 	const FHitResult& Hit)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Hit Teleporter."));
-	ATimberPlayableCharacter* Player = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* Player = Cast<ADieRobotPlayableCharacter>(OtherActor);
 	if (Player && TeleportPair)
 	{
 		PlayerToTeleport = Player;

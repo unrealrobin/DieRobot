@@ -5,10 +5,10 @@
 
 #include "MVVMGameSubsystem.h"
 #include "MVVMViewModelBase.h"
-#include "Character/TimberPlayableCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
 #include "Components/AudioComponent.h"
 #include "Components/Inventory/InventoryManagerComponent.h"
-#include "Controller/TimberPlayerController.h"
+#include "Controller/DieRobotPlayerController.h"
 #include "Data/DataAssets/MissionSystem/MissionBase.h"
 #include "Data/DataAssets/MissionSystem/MissionList.h"
 #include "Subsystems/Dialogue/DialogueManager.h"
@@ -199,7 +199,7 @@ void UMissionDeliveryComponent::ProcessRewards(TObjectPtr<UMissionBase>& ActiveM
 
 void UMissionDeliveryComponent::RewardPlayerCurrency(TObjectPtr<UMissionBase>& ActiveMissionRef)
 {
-	TObjectPtr<ATimberPlayableCharacter> Player = Cast<ATimberPlayableCharacter>(GetOwner());
+	TObjectPtr<ADieRobotPlayableCharacter> Player = Cast<ADieRobotPlayableCharacter>(GetOwner());
 	if (IsValid(Player) && IsValid(Player->InventoryManager))
 	{
 		Player->InventoryManager->AddPartsToInventory(ActiveMissionRef->CurrencyReward.PartsReward);

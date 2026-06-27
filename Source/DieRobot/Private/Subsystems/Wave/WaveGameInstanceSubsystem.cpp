@@ -2,22 +2,22 @@
 
 
 #include "Subsystems/Wave/WaveGameInstanceSubsystem.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
-#include "Character/Enemies/TimberEnemyMeleeWeaponBase.h"
-#include "Character/Enemies/TimberEnemyRangedBase.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyMeleeWeaponBase.h"
+#include "Character/Enemies/DieRobotEnemyRangedBase.h"
 #include "Character/Enemies/Boss/BossBase.h"
 #include "Data/WaveData.h"
 #include "Data/DataAssets/WaveDA/WaveCompDataAsset.h"
 #include "Environment/BossSpawnLocation.h"
 #include "Environment/DynamicLab.h"
 #include "Environment/GarageDoorBase.h"
-#include "Environment/TimberEnemySpawnLocations.h"
+#include "Environment/DieRobotEnemySpawnLocations.h"
 #include "Kismet/GameplayStatics.h"
 #include "Subsystems/Online/Leaderboard.h"
 #include "Subsystems/SaveLoad/SaveLoadSubsystem.h"
 #include "Subsystems/SFX/SFXManagerSubsystem.h"
-#include "Weapons/TimberWeaponBase.h"
-#include "Weapons/TimberWeaponRangedBase.h"
+#include "Weapons/DieRobotWeaponBase.h"
+#include "Weapons/DieRobotWeaponRangedBase.h"
 
 
 void UWaveGameInstanceSubsystem::CallForLeaderboardSubsystemBindings()
@@ -63,7 +63,7 @@ void UWaveGameInstanceSubsystem::PrepareSpawnPoints()
 
 void UWaveGameInstanceSubsystem::GetAllStandardSpawnPointsInLab()
 {
-	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ATimberEnemySpawnLocations::StaticClass(), StandardSpawnPoints);
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ADieRobotEnemySpawnLocations::StaticClass(), StandardSpawnPoints);
 }
 
 void UWaveGameInstanceSubsystem::StageAllStandardSpawnPointLocations()
@@ -289,7 +289,7 @@ void UWaveGameInstanceSubsystem::ShuffleEnemiesToSpawn()
 	}
 
 	/*UE_LOG(LogTemp, Warning, TEXT("-------------------Shuffled Enemies Start-------------------"));
-	for (TSubclassOf<ATimberEnemyCharacter> Enemy: EnemiesToSpawn)
+	for (TSubclassOf<ADieRobotEnemyCharacter> Enemy: EnemiesToSpawn)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Class: %s"), *Enemy->GetName());
 	}
@@ -396,9 +396,9 @@ void UWaveGameInstanceSubsystem::SpawnBoss(TSubclassOf<AActor> ActorToSpawn, FVe
 
 	AActor* Actor = GetWorld()->SpawnActor<AActor>(ActorToSpawn, Location, FRotator::ZeroRotator, SpawnParameters);
 	//UE_LOG(LogTemp, Warning, TEXT("Spawned Boss: %s"), *Actor->GetName());
-	if(Cast<ATimberEnemyCharacter>(Actor))
+	if(Cast<ADieRobotEnemyCharacter>(Actor))
 	{
-		SpawnedEnemies.Add(Cast<ATimberEnemyCharacter>(Actor));
+		SpawnedEnemies.Add(Cast<ADieRobotEnemyCharacter>(Actor));
 		TotalEnemiesSpawned += 1;
 		if (ABossBase* Boss = Cast<ABossBase>(Actor))
 		{
@@ -421,7 +421,7 @@ void UWaveGameInstanceSubsystem::SpawnEnemy(TSubclassOf<AActor> ActorToSpawn, FV
 	
 	AActor* Actor = GetWorld()->SpawnActor<AActor>(ActorToSpawn, Location, FRotator::ZeroRotator, SpawnParameters);
 	//UE_LOG(LogTemp, Warning, TEXT("Spawned Actor: %s"), *Actor->GetName());
-	if(ATimberEnemyCharacter* Enemy = Cast<ATimberEnemyCharacter>(Actor))
+	if(ADieRobotEnemyCharacter* Enemy = Cast<ADieRobotEnemyCharacter>(Actor))
 	{
 		SpawnedEnemies.Add(Enemy);
 		TotalEnemiesSpawned++;
@@ -429,9 +429,9 @@ void UWaveGameInstanceSubsystem::SpawnEnemy(TSubclassOf<AActor> ActorToSpawn, FV
 	}
 }
 
-void UWaveGameInstanceSubsystem::CheckArrayForEnemy(ATimberEnemyCharacter* Enemy)
+void UWaveGameInstanceSubsystem::CheckArrayForEnemy(ADieRobotEnemyCharacter* Enemy)
 {
-	//Called when enemy is Destroyed - ATimberEnemyCharacter::TakeDamage()
+	//Called when enemy is Destroyed - ADieRobotEnemyCharacter::TakeDamage()
 	if(SpawnedEnemies.Contains(Enemy))
 	{
 		//SpawnedEnemies.Remove(Enemy);
@@ -466,7 +466,7 @@ void UWaveGameInstanceSubsystem::ResetWaveEnemies()
 	//Clears any enemies that are still alive, redundant but safe.
 	if (SpawnedEnemies.Num() > 0)
 	{
-		for(ATimberEnemyCharacter* Enemy : SpawnedEnemies)
+		for(ADieRobotEnemyCharacter* Enemy : SpawnedEnemies)
 		{
 			if(Enemy)
 			{
@@ -489,12 +489,12 @@ void UWaveGameInstanceSubsystem::IncrementWave()
 	CurrentWaveHandle.Broadcast(CurrentWaveNumber);
 }
 
-void UWaveGameInstanceSubsystem::CheckEnemiesForWeapons(ATimberEnemyCharacter* Enemy)
+void UWaveGameInstanceSubsystem::CheckEnemiesForWeapons(ADieRobotEnemyCharacter* Enemy)
 {
 	//These are the only two enemies that carry weapons.
 	//They dont share a parent that stores the Equipped Weapon.
-	ATimberEnemyMeleeWeaponBase* MeleeWeaponEnemy = Cast<ATimberEnemyMeleeWeaponBase>(Enemy);
-	ATimberEnemyRangedBase* RangedWeaponEnemy = Cast<ATimberEnemyRangedBase>(Enemy);
+	ADieRobotEnemyMeleeWeaponBase* MeleeWeaponEnemy = Cast<ADieRobotEnemyMeleeWeaponBase>(Enemy);
+	ADieRobotEnemyRangedBase* RangedWeaponEnemy = Cast<ADieRobotEnemyRangedBase>(Enemy);
 	if (MeleeWeaponEnemy)
 	{
 		MeleeWeaponEnemy->EquippedWeapon->Destroy();
@@ -616,7 +616,7 @@ void UWaveGameInstanceSubsystem::ResetWaveSubsystem()
 	CurrentWaveHandle.Broadcast(CurrentWaveNumber);
 }
 
-void UWaveGameInstanceSubsystem::AddClassToEnemiesToSpawnArray(TSubclassOf<ATimberEnemyCharacter> ClassToAdd,
+void UWaveGameInstanceSubsystem::AddClassToEnemiesToSpawnArray(TSubclassOf<ADieRobotEnemyCharacter> ClassToAdd,
                                                                int NumberToAdd)
 {
 	for (int i = 0; i < NumberToAdd; i++)

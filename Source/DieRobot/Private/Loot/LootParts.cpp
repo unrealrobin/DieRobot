@@ -3,7 +3,7 @@
 
 #include "Loot/LootParts.h"
 
-#include "Character/TimberPlayableCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/Inventory/InventoryManagerComponent.h"
 
@@ -31,7 +31,7 @@ void ALootParts::HandleLootItemOverlap(
 	Super::HandleLootItemOverlap(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 	//When overlapped, add coins to the players state inventory
 	//UE_LOG(LogTemp, Warning, TEXT("Overlapped Part"));
-	ATimberPlayableCharacter* Character = Cast<ATimberPlayableCharacter>(OtherActor);
+	ADieRobotPlayableCharacter* Character = Cast<ADieRobotPlayableCharacter>(OtherActor);
 	if(Character)
 	{
 		// Add parts to player Inventory

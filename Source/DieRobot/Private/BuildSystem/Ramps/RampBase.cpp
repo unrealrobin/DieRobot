@@ -3,7 +3,7 @@
 
 #include "BuildSystem/Ramps/RampBase.h"
 
-#include "Character/TimberSeeda.h"
+#include "Character/DieRobotSeeda.h"
 #include "Components/BoxComponent.h"
 
 
@@ -56,7 +56,7 @@ bool ARampBase::bIsRampProxyBlocked()
 			//Ignoring Self 
 			if (IndividualHit.GetActor() == this) continue;
 			
-			if (Cast<ATimberSeeda>(IndividualHit.GetActor()) || Cast<ARampBase>(IndividualHit.GetActor()) || Cast<ABuildableBase>(IndividualHit.GetActor()))
+			if (Cast<ADieRobotSeeda>(IndividualHit.GetActor()) || Cast<ARampBase>(IndividualHit.GetActor()) || Cast<ABuildableBase>(IndividualHit.GetActor()))
 			{
 				UE_LOG(LogTemp, Display, TEXT("Ramp Blocked by: %s"), *IndividualHit.GetActor()->GetName());
 				return true;

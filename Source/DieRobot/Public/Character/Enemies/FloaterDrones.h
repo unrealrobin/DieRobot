@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TimberEnemyCharacter.h"
-#include "Weapons/Projectiles/TimberProjectileBase.h"
+#include "DieRobotEnemyCharacter.h"
+#include "Weapons/Projectiles/DieRobotProjectileBase.h"
 #include "FloaterDrones.generated.h"
 
 
-class ATimberEnemyProjectile;
+class ADieRobotEnemyProjectile;
 class ABossLola;
 
 UENUM(BlueprintType)
@@ -19,7 +19,7 @@ enum class EDroneState : uint8
 };
 
 UCLASS()
-class DIEROBOT_API AFloaterDrones : public ATimberEnemyCharacter
+class DIEROBOT_API AFloaterDrones : public ADieRobotEnemyCharacter
 {
 	GENERATED_BODY()
 
@@ -76,7 +76,7 @@ public:
 
 	/* Projectile */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
-	TSubclassOf<ATimberProjectileBase> ProjectileClass;
+	TSubclassOf<ADieRobotProjectileBase> ProjectileClass;
 
 	
 	UFUNCTION()

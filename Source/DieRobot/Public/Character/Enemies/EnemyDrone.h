@@ -3,16 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TimberEnemyCharacter.h"
+#include "DieRobotEnemyCharacter.h"
 #include "EnemyDrone.generated.h"
 
 class USplineComponent;
 class AEnemyDroneSplinePath;
 class UNiagaraComponent;
-class ATimberEnemyProjectile;
+class ADieRobotEnemyProjectile;
 
 UCLASS()
-class DIEROBOT_API AEnemyDrone : public ATimberEnemyCharacter
+class DIEROBOT_API AEnemyDrone : public ADieRobotEnemyCharacter
 {
 	GENERATED_BODY()
 
@@ -27,7 +27,7 @@ public:
 	UNiagaraComponent* DroneParticleSystem = nullptr;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
-	TSubclassOf<ATimberEnemyProjectile> ProjectileClass = nullptr;
+	TSubclassOf<ADieRobotEnemyProjectile> ProjectileClass = nullptr;
 
 protected:
 	// Called when the game starts or when spawned

@@ -3,9 +3,9 @@
 
 #include "AI/Behavior/Tasks/Task_Ai_RotateToBBEntry.h"
 
-#include "AI/TimberAiControllerBase.h"
+#include "AI/DieRobotAiControllerBase.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 
 UTask_Ai_RotateToBBEntry::UTask_Ai_RotateToBBEntry()
 {
@@ -15,10 +15,10 @@ UTask_Ai_RotateToBBEntry::UTask_Ai_RotateToBBEntry()
 EBTNodeResult::Type UTask_Ai_RotateToBBEntry::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 
-	ATimberAiControllerBase* AIControllerBase = Cast<ATimberAiControllerBase>(OwnerComp.GetAIOwner());
+	ADieRobotAiControllerBase* AIControllerBase = Cast<ADieRobotAiControllerBase>(OwnerComp.GetAIOwner());
 	if (!AIControllerBase) return EBTNodeResult::Failed;
 
-	ATimberEnemyCharacter* AiEnemyCharacter = Cast<ATimberEnemyCharacter>(AIControllerBase->GetPawn());
+	ADieRobotEnemyCharacter* AiEnemyCharacter = Cast<ADieRobotEnemyCharacter>(AIControllerBase->GetPawn());
 	if (!AiEnemyCharacter) return EBTNodeResult::Failed;
 
 	UBlackboardComponent* BlackboardComponent = OwnerComp.GetBlackboardComponent();

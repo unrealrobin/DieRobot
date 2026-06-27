@@ -3,13 +3,13 @@
 
 #include "Weapons/Abilities/RangedWeapon/KnockbackBlast.h"
 
-#include "AI/TimberAiControllerBase.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "AI/DieRobotAiControllerBase.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Types/Combat/DamagePayload.h"
 #include "UObject/FastReferenceCollector.h"
-#include "Weapons/TimberWeaponRangedBase.h"
+#include "Weapons/DieRobotWeaponRangedBase.h"
 
 UKnockbackBlast::UKnockbackBlast()
 {
@@ -22,7 +22,7 @@ UKnockbackBlast::UKnockbackBlast()
 void UKnockbackBlast::Execute(FAbilityContext Context)
 {
 	//Spawn a UBoxComponent that starts at the muzzle of the Weapon.
-	ATimberWeaponRangedBase* OwningWeapon = Cast<ATimberWeaponRangedBase>(Context.WeaponInstance);
+	ADieRobotWeaponRangedBase* OwningWeapon = Cast<ADieRobotWeaponRangedBase>(Context.WeaponInstance);
 	if (OwningWeapon && OwningWeapon->ProjectileSpawnComponent)
 	{
 		OwningWeapon->ConsumePower(PowerCost);
@@ -108,7 +108,7 @@ void UKnockbackBlast::HandleOverlap(
 	{
 		ActorsToIgnore.Add(OtherActor);
 		UE_LOG(LogTemp, Warning, TEXT("HitActor = %s"), *OtherActor->GetName());
-		if (ATimberEnemyCharacter* Enemy = Cast<ATimberEnemyCharacter>(OtherActor))
+		if (ADieRobotEnemyCharacter* Enemy = Cast<ADieRobotEnemyCharacter>(OtherActor))
 		{
 			//Getting a Straight Line from Actor to Player & Flattening the Vector. (Straight Back Push Away from Player)
 			FVector ImpulseDirection = OtherActor->GetActorLocation() - LocalContext.Instigator->GetActorLocation();
@@ -121,7 +121,7 @@ void UKnockbackBlast::HandleOverlap(
 
 			if (Enemy->GetController())
 			{
-				if (ATimberAiControllerBase* AiController = Cast<ATimberAiControllerBase>(Enemy->GetController()) )
+				if (ADieRobotAiControllerBase* AiController = Cast<ADieRobotAiControllerBase>(Enemy->GetController()) )
 				{
 					if (AiController->GetBrainComponent())
 					{

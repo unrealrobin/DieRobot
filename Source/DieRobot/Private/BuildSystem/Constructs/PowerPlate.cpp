@@ -2,8 +2,8 @@
 
 
 #include "BuildSystem/Constructs/PowerPlate.h"
-#include "BuildSystem/BuildingComponents/TimberBuildingComponentBase.h"
-#include "Character/TimberPlayableCharacter.h"
+#include "BuildSystem/BuildingComponents/DieRobotBuildingComponentBase.h"
+#include "Character/DieRobotPlayableCharacter.h"
 #include "Components/BoxComponent.h"
 
 // Sets default values
@@ -29,7 +29,7 @@ APowerPlate::APowerPlate()
 
 void APowerPlate::FreeUpTrapSlotOnBuildingComponent()
 {
-	if (ATimberBuildingComponentBase* ParentBuildingComponent = Cast<ATimberBuildingComponentBase>(ParentBuildable))
+	if (ADieRobotBuildingComponentBase* ParentBuildingComponent = Cast<ADieRobotBuildingComponentBase>(ParentBuildable))
 	{
 		ParentBuildingComponent->FrontCenterAttachment = nullptr;
 	}
@@ -97,30 +97,30 @@ void APowerPlate::HitBoxBeginOverlap(
 	bool bFromSweep, const FHitResult& SweepResult)
 {
 	/*Timeline Animations for PowerPad Movement in BP's*/
-	ATimberPlayableCharacter* TimberCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
-	if (TimberCharacter)
+	ADieRobotPlayableCharacter* DieRobotCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
+	if (DieRobotCharacter)
 	{
 		//Adding 50% Damage Increase
-		TimberCharacter->DamageModifierValue += .5f;
+		DieRobotCharacter->DamageModifierValue += .5f;
 		//Power Plate Glow On
 		HandlePowerPlateMaterialChange(true);
 		//Gives the Character the PowerUp Overlay Material
-		TimberCharacter->AddOverlayMaterialToCharacter(TimberCharacter->PowerUpOverlayMaterial, 0.0f);
+		DieRobotCharacter->AddOverlayMaterialToCharacter(DieRobotCharacter->PowerUpOverlayMaterial, 0.0f);
 	}
 }
 
 void APowerPlate::HitBoxEndOverlap(
 	UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	ATimberPlayableCharacter* TimberCharacter = Cast<ATimberPlayableCharacter>(OtherActor);
-	if (TimberCharacter)
+	ADieRobotPlayableCharacter* DieRobotCharacter = Cast<ADieRobotPlayableCharacter>(OtherActor);
+	if (DieRobotCharacter)
 	{
 		//Removing 50% Damage Increase
-		TimberCharacter->DamageModifierValue -= .5f;
+		DieRobotCharacter->DamageModifierValue -= .5f;
 		//Glow Off
 		HandlePowerPlateMaterialChange(false);
 		//Removes the PowerUp Overlay Material
-		TimberCharacter->RemoveOverlayMaterialFromCharacter();
+		DieRobotCharacter->RemoveOverlayMaterialFromCharacter();
 	}
 }
 

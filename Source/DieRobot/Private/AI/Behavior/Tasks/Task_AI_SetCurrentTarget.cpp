@@ -3,9 +3,9 @@
 
 #include "AI/Behavior/Tasks/Task_AI_SetCurrentTarget.h"
 
-#include "AI/TimberAiControllerBase.h"
+#include "AI/DieRobotAiControllerBase.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 
 UTask_AI_SetCurrentTarget::UTask_AI_SetCurrentTarget()
 {
@@ -16,10 +16,10 @@ EBTNodeResult::Type UTask_AI_SetCurrentTarget::ExecuteTask(UBehaviorTreeComponen
 {
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 
-	ATimberAiControllerBase* AIControllerBase = Cast<ATimberAiControllerBase>(OwnerComp.GetAIOwner());
+	ADieRobotAiControllerBase* AIControllerBase = Cast<ADieRobotAiControllerBase>(OwnerComp.GetAIOwner());
 	if (!AIControllerBase) return EBTNodeResult::Failed;
 
-	ATimberEnemyCharacter* AiEnemyCharacter = Cast<ATimberEnemyCharacter>(AIControllerBase->GetPawn());
+	ADieRobotEnemyCharacter* AiEnemyCharacter = Cast<ADieRobotEnemyCharacter>(AIControllerBase->GetPawn());
 	if (!AiEnemyCharacter) return EBTNodeResult::Failed;
 
 	UBlackboardComponent* BlackboardComponent = OwnerComp.GetBlackboardComponent();
@@ -30,7 +30,7 @@ EBTNodeResult::Type UTask_AI_SetCurrentTarget::ExecuteTask(UBehaviorTreeComponen
 	if (CurrentTarget)
 	{
 		//Setting current target on Enemy AI Character
-		Cast<ATimberEnemyCharacter>(AIControllerBase->GetPawn())->CurrentTarget = CurrentTarget;
+		Cast<ADieRobotEnemyCharacter>(AIControllerBase->GetPawn())->CurrentTarget = CurrentTarget;
 		//UE_LOG(LogTemp, Warning, TEXT("Task_AI_SetCurrentTarget: Current Target is %s."), *CurrentTarget->GetName());
 		return EBTNodeResult::Succeeded;
 	}

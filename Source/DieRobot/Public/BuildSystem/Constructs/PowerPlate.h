@@ -8,7 +8,7 @@
 #include "PowerPlate.generated.h"
 
 class UBoxComponent;
-class ATimberBuildingComponentBase;
+class ADieRobotBuildingComponentBase;
 
 UCLASS()
 class DIEROBOT_API APowerPlate : public AConstructBase

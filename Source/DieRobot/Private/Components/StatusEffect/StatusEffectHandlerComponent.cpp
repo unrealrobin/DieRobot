@@ -2,8 +2,8 @@
 
 
 #include "Components/StatusEffect/StatusEffectHandlerComponent.h"
-#include "AI/TimberAiControllerBase.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "AI/DieRobotAiControllerBase.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Data/DataAssets/StatusEffects/StatusEffectBase.h"
@@ -21,7 +21,7 @@ void UStatusEffectHandlerComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	OwningEnemyCharacter = Cast<ATimberEnemyCharacter>(GetOwner());
+	OwningEnemyCharacter = Cast<ADieRobotEnemyCharacter>(GetOwner());
 	if (!IsValid(OwningEnemyCharacter))
 	{
 		UE_LOG(LogTemp, Error, TEXT("StatusEffectHandlerComponent could not get Owning Enemy Character."));
@@ -246,7 +246,7 @@ void UStatusEffectHandlerComponent::HandleModifierDebuffIsStunned(FStatusEffect&
 		MoveComp->StopMovementImmediately();
 	}
 
-	ATimberAiControllerBase* AiController = Cast<ATimberAiControllerBase>(OwningEnemyCharacter->GetController());
+	ADieRobotAiControllerBase* AiController = Cast<ADieRobotAiControllerBase>(OwningEnemyCharacter->GetController());
 	if (IsValid(AiController) && IsValid(AiController->BrainComponent))
 	{
 		AiController->BrainComponent->StopLogic("Is Stunned");
@@ -312,7 +312,7 @@ void UStatusEffectHandlerComponent::HandleStunEffectRemoval(const FStatusEffect&
 				OwningEnemyCharacter->GetMesh()->GlobalAnimRateScale = 1.0f;
 			}
 		}
-		ATimberAiControllerBase* AiController = Cast<ATimberAiControllerBase>(OwningEnemyCharacter->GetController());
+		ADieRobotAiControllerBase* AiController = Cast<ADieRobotAiControllerBase>(OwningEnemyCharacter->GetController());
 		//Freezes Enemy logic
 		if (IsValid(AiController) && IsValid(AiController->BrainComponent))
 		{
@@ -351,7 +351,7 @@ void UStatusEffectHandlerComponent::HandleEffectInitialDamage(FStatusEffect& Eff
 void UStatusEffectHandlerComponent::AddEffectToStatusEffectBar(FGameplayTag EffectTag)
 {
 	//TODO::This only works with the Enemy Characters At the moment. Interface? 
-	ATimberEnemyCharacter* EnemyCharacter = Cast<ATimberEnemyCharacter>(GetOwner());
+	ADieRobotEnemyCharacter* EnemyCharacter = Cast<ADieRobotEnemyCharacter>(GetOwner());
 	if (IsValid(EnemyCharacter))
 	{
 		if (IsValid(EnemyCharacter->DataClusterWidgetComponent))
@@ -376,7 +376,7 @@ void UStatusEffectHandlerComponent::AddEffectToStatusEffectBar(FGameplayTag Effe
 
 void UStatusEffectHandlerComponent::RemoveEffectFromStatusEffectBar(FGameplayTag EffectTag)
 {
-	ATimberEnemyCharacter* EnemyCharacter = Cast<ATimberEnemyCharacter>(GetOwner());
+	ADieRobotEnemyCharacter* EnemyCharacter = Cast<ADieRobotEnemyCharacter>(GetOwner());
 	if (IsValid(EnemyCharacter))
 	{
 		if (IsValid(EnemyCharacter->DataClusterWidgetComponent))

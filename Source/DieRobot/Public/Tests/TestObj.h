@@ -7,7 +7,7 @@
 #include "Interfaces/Interactable.h"
 #include "TestObj.generated.h"
 
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 class UCapsuleComponent;
 
 UCLASS()
@@ -46,7 +46,7 @@ public:
 		int32 OtherBodyIndex);
 
 	UPROPERTY(EditAnywhere, Category = "Enemy")
-	TArray<TSubclassOf<ATimberEnemyCharacter>> EnemyToSpawn;
+	TArray<TSubclassOf<ADieRobotEnemyCharacter>> EnemyToSpawn;
 
 protected:
 	FRotator InitialLeverRotation;

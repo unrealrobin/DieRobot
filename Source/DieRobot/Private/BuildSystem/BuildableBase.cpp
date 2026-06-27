@@ -3,7 +3,7 @@
 
 #include "BuildSystem/BuildableBase.h"
 
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/StatusEffect/StatusEffectHandlerComponent.h"
 #include "Data/DataAssets/StatusEffects/StatusEffectBase.h"
 #include "Engine/World.h"
@@ -12,7 +12,7 @@
 #include "UObject/ConstructorHelpers.h"
 
 
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 // Sets default values
 ABuildableBase::ABuildableBase()
 {
@@ -84,7 +84,7 @@ void ABuildableBase::SetGUID(FGuid NewGUID)
 	/*
 	 * Used for Traps and Constructs that add effects to enemies.
 	 #1#
-	ATimberEnemyCharacter* EnemyCharacter = Cast<ATimberEnemyCharacter>(EnemyActor);
+	ADieRobotEnemyCharacter* EnemyCharacter = Cast<ADieRobotEnemyCharacter>(EnemyActor);
 	if (EnemyCharacter && !EnemyCharacter->IsPendingKillPending() && EnemyCharacter->StatusEffectHandler)
 	{
 		

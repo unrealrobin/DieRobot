@@ -2,9 +2,9 @@
 // Property of Paracosm.
 
 #include "AI/Behavior/Tasks/Task_MoveThroughCorridorPathV2.h"
-#include "AI/TimberAiControllerBase.h"
+#include "AI/DieRobotAiControllerBase.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/Navigation/NavigationHelperComponent.h"
 #include "Navigation/PathFollowingComponent.h"
 #include "BuildSystem/BuildableBase.h"
@@ -26,7 +26,7 @@ EBTNodeResult::Type UTask_MoveThroughCorridorPathV2::ExecuteTask(UBehaviorTreeCo
 
     // Cache core components
     BehaviorTreeComponent = &OwnerComp;
-    AIControllerBase = Cast<ATimberAiControllerBase>(OwnerComp.GetAIOwner());
+    AIControllerBase = Cast<ADieRobotAiControllerBase>(OwnerComp.GetAIOwner());
     
     if (!AIControllerBase)
     {
@@ -34,7 +34,7 @@ EBTNodeResult::Type UTask_MoveThroughCorridorPathV2::ExecuteTask(UBehaviorTreeCo
         return EBTNodeResult::Failed;
     }
 
-    EnemyCharacter = Cast<ATimberEnemyCharacter>(AIControllerBase->GetPawn());
+    EnemyCharacter = Cast<ADieRobotEnemyCharacter>(AIControllerBase->GetPawn());
     if (!EnemyCharacter)
     {
         //UE_LOG(LogTemp, Error, TEXT("Task_MoveThroughCorridorPathV2: Failed to get Enemy Character"));

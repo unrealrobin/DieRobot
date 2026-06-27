@@ -4,7 +4,7 @@
 #include "BuildSystem/Traps/BurnTrap.h"
 
 #include "NiagaraComponent.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/BoxComponent.h"
 #include "Components/StatusEffect/StatusConditionManager.h"
 #include "Data/DataAssets/StatusEffects/StatusEffectBase.h"
@@ -39,7 +39,7 @@ void ABurnTrap::BeginPlay()
 
 void ABurnTrap::HandleTrapBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (BurnTrapInternalsNiagara && EffectConditionManager && OtherActor->IsA(ATimberEnemyCharacter::StaticClass()))
+	if (BurnTrapInternalsNiagara && EffectConditionManager && OtherActor->IsA(ADieRobotEnemyCharacter::StaticClass()))
 	{
 		BurnTrapInternalsNiagara->ActivateSystem();
 		EffectConditionManager->ResolveEffect(StatusEffectDefinitions, OtherActor);
@@ -50,7 +50,7 @@ void ABurnTrap::HandleTrapEndOverlap(UPrimitiveComponent* OverlappedComponent, A
 	UPrimitiveComponent* OtherComp, int32 INT32)
 {
 	//Check if anyone is still in hit-box, if not, turn off the effect.
-	if (OtherActor->IsA(ATimberEnemyCharacter::StaticClass()) && InsideHitBoxArray.Num() == 0 )
+	if (OtherActor->IsA(ADieRobotEnemyCharacter::StaticClass()) && InsideHitBoxArray.Num() == 0 )
 	{
 		if (BurnTrapInternalsNiagara)
 		{

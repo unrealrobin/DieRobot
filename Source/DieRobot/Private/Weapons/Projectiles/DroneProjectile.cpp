@@ -3,10 +3,10 @@
 
 #include "Weapons/Projectiles/DroneProjectile.h"
 
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 
 
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 // Sets default values
 ADroneProjectile::ADroneProjectile()
 {
@@ -25,7 +25,7 @@ bool ADroneProjectile::IsActorCurrentTarget(AActor* OtherActor)
 {
 	//Used for Drones
 	// Projectile->Drone Enemy
-	if (ATimberEnemyCharacter* EnemyCharacter = Cast<ATimberEnemyCharacter>(GetOwner()))
+	if (ADieRobotEnemyCharacter* EnemyCharacter = Cast<ADieRobotEnemyCharacter>(GetOwner()))
 	{
 		if (OtherActor == EnemyCharacter->CurrentTarget)
 		{
@@ -41,7 +41,7 @@ bool ADroneProjectile::IsActorCurrentTarget(AActor* OtherActor)
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Owner of Drone Projectile is not a Timber Enemy Character!"));
+		UE_LOG(LogTemp, Warning, TEXT("Owner of Drone Projectile is not a DieRobot Enemy Character!"));
 	}
 	return false;
 }

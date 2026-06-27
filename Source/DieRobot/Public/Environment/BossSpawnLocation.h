@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TimberEnemySpawnLocations.h"
+#include "DieRobotEnemySpawnLocations.h"
 #include "BossSpawnLocation.generated.h"
 
 UCLASS()

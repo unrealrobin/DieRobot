@@ -3,7 +3,7 @@
 
 #include "Synergy/EffectLogic/DerivedHandlers/ElectrocuteAbilityHandler.h"
 
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/StatusEffect/StatusEffectHandlerComponent.h"
 
 UElectrocuteAbilityHandler::UElectrocuteAbilityHandler()
@@ -25,7 +25,7 @@ void UElectrocuteAbilityHandler::ExecuteEffect(AActor* TargetActor,
 		//Apply an effect or Damage to these actors.
 		if (!IsValid(ClosestNActor)) continue;
 		
-		ATimberEnemyCharacter* Enemy = Cast<ATimberEnemyCharacter>(ClosestNActor);
+		ADieRobotEnemyCharacter* Enemy = Cast<ADieRobotEnemyCharacter>(ClosestNActor);
 		if (IsValid(Enemy))
 		{
 			Enemy->StatusEffectHandler->AddStatusEffectToComponent(StatusEffect.SecondaryEffect->StatusEffect);

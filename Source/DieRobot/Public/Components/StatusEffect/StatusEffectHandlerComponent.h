@@ -8,7 +8,7 @@
 #include "StatusEffectHandlerComponent.generated.h"
 
 
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 struct FStatusEffect;
 class UStatusEffectBase;
 
@@ -28,7 +28,7 @@ public:
 	FGameplayTagContainer StatusEffectIdTagContainer;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "StatusEffects")
-	ATimberEnemyCharacter* OwningEnemyCharacter = nullptr;
+	ADieRobotEnemyCharacter* OwningEnemyCharacter = nullptr;
 	
 	void AddStatusEffectToComponent(FStatusEffect& Effect);
 	void AddEmergentTag(FGameplayTag Tag, float Duration);

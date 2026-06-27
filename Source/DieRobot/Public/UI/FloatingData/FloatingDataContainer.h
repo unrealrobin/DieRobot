@@ -7,7 +7,7 @@
 #include "FloatingDataContainer.generated.h"
 
 class UWidgetComponent;
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 UCLASS()
 class DIEROBOT_API AFloatingDataContainer : public AActor
 {
@@ -27,14 +27,14 @@ public:
 	TObjectPtr<USceneComponent> SpawnSceneComponentRef;
 
 	UPROPERTY()
-	ATimberEnemyCharacter* DataActor;
+	ADieRobotEnemyCharacter* DataActor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage Number")
 	float TimeUntilDestroy = 2.0f;
 	float ElapsedTime = 0.0f;
 
 	UPROPERTY()
-	TObjectPtr<ATimberEnemyCharacter> OwningActor;
+	TObjectPtr<ADieRobotEnemyCharacter> OwningActor;
 
 	void SetIsDamage(bool bIsThisDamage);
 	void SetEffectText(FName EffectName);

@@ -6,7 +6,7 @@
 #include "ConstructBase.h"
 #include "TeleportConstruct.generated.h"
 
-class ATimberPlayableCharacter;
+class ADieRobotPlayableCharacter;
 class UBoxComponent;
 
 UENUM(BlueprintType) // Allows usage in Blueprints
@@ -73,7 +73,7 @@ protected:
 	float TeleportTimeElapsed;
 	FTimerHandle TeleportTimerHandle;
 	UPROPERTY()
-	ATimberPlayableCharacter* PlayerToTeleport = nullptr;
+	ADieRobotPlayableCharacter* PlayerToTeleport = nullptr;
 	UFUNCTION()
 	void StartTeleport(FVector TargetDestination, float DurationToTeleport);
 	UFUNCTION()
@@ -107,5 +107,5 @@ public:
 
 private:
 	UPROPERTY()
-	ATimberPlayableCharacter* PlayerCharacter = nullptr;
+	ADieRobotPlayableCharacter* PlayerCharacter = nullptr;
 };

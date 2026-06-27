@@ -2,7 +2,7 @@
 
 
 #include "BuildSystem/Traps/SpikeTrap.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/BoxComponent.h"
 #include "Components/TimelineComponent.h"
 #include "Components/StatusEffect/StatusConditionManager.h"
@@ -69,7 +69,7 @@ void ASpikeTrap::HandleSpikeTrapOverlap(
 	if (AmplificationState == EAmplificationState::Amplified) return;
 	
 	//Timer from initial activation to spike out attack
-	ATimberEnemyCharacter* Enemy = Cast<ATimberEnemyCharacter>(OtherActor);
+	ADieRobotEnemyCharacter* Enemy = Cast<ADieRobotEnemyCharacter>(OtherActor);
 	if (Enemy)
 	{
 		if (!IsSpikeOnCooldown) // IF the spike is not on cooldown, then we can activate the spike out attack.
@@ -96,7 +96,7 @@ void ASpikeTrap::ApplyStatusEffectToEnemy()
 		
 		for (TWeakObjectPtr HitActor : Snapshot)
 		{
-			if (HitActor.IsValid() && HitActor->IsA(ATimberEnemyCharacter::StaticClass()))
+			if (HitActor.IsValid() && HitActor->IsA(ADieRobotEnemyCharacter::StaticClass()))
 			{
 				EffectConditionManager->ResolveEffect(StatusEffectDefinitions, HitActor.Get());
 			}

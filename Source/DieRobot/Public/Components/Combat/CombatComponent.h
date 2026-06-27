@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "InputActionValue.h"
 #include "Components/ActorComponent.h"
-#include "Weapons/TimberWeaponBase.h"
+#include "Weapons/DieRobotWeaponBase.h"
 #include "CombatComponent.generated.h"
 
 enum class EAbilityInputRequirement : uint8;
@@ -38,7 +38,7 @@ struct FAbilityContext
 
 	//The Weapon that initiated the ability
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability Context")
-	ATimberWeaponBase* WeaponInstance = nullptr;
+	ADieRobotWeaponBase* WeaponInstance = nullptr;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability Context")
 	FVector TargetLocation = FVector::ZeroVector;
@@ -46,9 +46,9 @@ struct FAbilityContext
 	FInputActionValue InputActionValue = FInputActionValue();
 };
 
-class ATimberPlayableCharacter;
-class ATimberWeaponRangedBase;
-class ATimberWeaponMeleeBase;
+class ADieRobotPlayableCharacter;
+class ADieRobotWeaponRangedBase;
+class ADieRobotWeaponMeleeBase;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class DIEROBOT_API UCombatComponent : public UActorComponent
@@ -64,9 +64,9 @@ public:
 	 * Stores the Spawned Weapon Instances
 	 */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Weapon")
-	ATimberWeaponRangedBase* RangedWeaponInstance = nullptr;
+	ADieRobotWeaponRangedBase* RangedWeaponInstance = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Weapon")
-	ATimberWeaponMeleeBase* MeleeWeaponInstance = nullptr;
+	ADieRobotWeaponMeleeBase* MeleeWeaponInstance = nullptr;
 
 	/*
 	 * Stores the currently Equipped Weapon
@@ -155,7 +155,7 @@ public:
 	/*
 	 * Getters
 	 */
-	FORCEINLINE ATimberWeaponBase* GetCurrentlyEquippedWeapon() const { return CurrentlyEquippedWeapon; }
+	FORCEINLINE ADieRobotWeaponBase* GetCurrentlyEquippedWeapon() const { return CurrentlyEquippedWeapon; }
 	FORCEINLINE EOwnerWeaponState GetCurrentWeaponState() const { return CurrentWeaponState; }
 
 	/*
@@ -171,19 +171,19 @@ protected:
 	ACharacter* OwningCharacter = nullptr;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Data")
-	ATimberWeaponBase* CurrentlyEquippedWeapon = nullptr;
+	ADieRobotWeaponBase* CurrentlyEquippedWeapon = nullptr;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Data")
 	EOwnerWeaponState CurrentWeaponState = EOwnerWeaponState::Unequipped;
 	
 	/* Weapon Classes (For Spawning)*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon")
-	TSubclassOf<ATimberWeaponBase> RangedWeaponClass;
+	TSubclassOf<ADieRobotWeaponBase> RangedWeaponClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon")
-	TSubclassOf<ATimberWeaponBase> MeleeWeaponClass;
+	TSubclassOf<ADieRobotWeaponBase> MeleeWeaponClass;
 	
-	void EquipWeapon(ATimberWeaponBase* WeaponInstance, FName EquippedWeaponSocketName);
-	void UnEquipWeapon(ATimberWeaponBase* WeaponInstance, FName UnEquipSocketName);
+	void EquipWeapon(ADieRobotWeaponBase* WeaponInstance, FName EquippedWeaponSocketName);
+	void UnEquipWeapon(ADieRobotWeaponBase* WeaponInstance, FName UnEquipSocketName);
 
 	/*
 	 * Validates if the ability can be fired based on Cooldowns and Resources
@@ -205,7 +205,7 @@ private:
 	FAbilityContext GenerateCurrentAbilityContext(const FInputActionValue& InputValue);
 	
 	UFUNCTION()
-	void SpawnWeaponAtSocketLocation(TSubclassOf<ATimberWeaponBase> WeaponClassToSpawn, FName SocketName);
+	void SpawnWeaponAtSocketLocation(TSubclassOf<ADieRobotWeaponBase> WeaponClassToSpawn, FName SocketName);
 	
 	UFUNCTION()
 	void SendWeaponStateToOwnerAnimInstance();
@@ -218,7 +218,7 @@ private:
 	/*
 	 * Consumes Power to Execute Ability
 	 */
-	void ConsumePower(ATimberWeaponBase* WeaponInstance, float AmountToConsume);
+	void ConsumePower(ADieRobotWeaponBase* WeaponInstance, float AmountToConsume);
 
 	/*
 	 * Checks whether the ability is a Power based ability (Ex. Not ammo based.)

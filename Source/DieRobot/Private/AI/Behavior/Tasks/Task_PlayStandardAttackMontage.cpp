@@ -3,8 +3,8 @@
 
 #include "AI/Behavior/Tasks/Task_PlayStandardAttackMontage.h"
 
-#include "AI/TimberAiControllerBase.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "AI/DieRobotAiControllerBase.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 
 UTask_PlayStandardAttackMontage::UTask_PlayStandardAttackMontage()
 {
@@ -31,14 +31,14 @@ EBTNodeResult::Type UTask_PlayStandardAttackMontage::ExecuteTask(UBehaviorTreeCo
 		return EBTNodeResult::Failed;
 	}
 
-	ATimberAiControllerBase* AIControllerBase = Cast<ATimberAiControllerBase>(OwnerComp.GetAIOwner());
+	ADieRobotAiControllerBase* AIControllerBase = Cast<ADieRobotAiControllerBase>(OwnerComp.GetAIOwner());
 	if (!AIControllerBase)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Task_StandardAttackMontage - Could not Cast to AI Controller."));
 		return EBTNodeResult::Failed;
 	}
 
-	ATimberEnemyCharacter* AICharacter = Cast<ATimberEnemyCharacter>(AIControllerBase->GetPawn());
+	ADieRobotEnemyCharacter* AICharacter = Cast<ADieRobotEnemyCharacter>(AIControllerBase->GetPawn());
 	if (!AICharacter)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Task_StandardAttackMontage - Could not Cast to AI Character."));
@@ -102,10 +102,10 @@ void UTask_PlayStandardAttackMontage::CleanUpDelegateBindings()
 {
 	if (OwnerBehaviorTreeComp)
 	{
-		ATimberAiControllerBase* AIControllerBase = Cast<ATimberAiControllerBase>(OwnerBehaviorTreeComp->GetAIOwner());
+		ADieRobotAiControllerBase* AIControllerBase = Cast<ADieRobotAiControllerBase>(OwnerBehaviorTreeComp->GetAIOwner());
 		if (AIControllerBase)
 		{
-			ATimberEnemyCharacter* AICharacter = Cast<ATimberEnemyCharacter>(AIControllerBase->GetPawn());
+			ADieRobotEnemyCharacter* AICharacter = Cast<ADieRobotEnemyCharacter>(AIControllerBase->GetPawn());
 			if (AICharacter)
 			{
 				UAnimInstance* AnimInstance = AICharacter->GetMesh()->GetAnimInstance();

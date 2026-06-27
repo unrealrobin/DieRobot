@@ -4,8 +4,8 @@
 #include "Components/Inventory/InventoryManagerComponent.h"
 
 #include "BuildSystem/BuildableBase.h"
-#include "Character/TimberPlayableCharacter.h"
-#include "Controller/TimberPlayerController.h"
+#include "Character/DieRobotPlayableCharacter.h"
+#include "Controller/DieRobotPlayerController.h"
 
 
 UInventoryManagerComponent::UInventoryManagerComponent()
@@ -27,11 +27,11 @@ void UInventoryManagerComponent::LoadOwningPlayerState()
 	 * PC - Player Controller
 	 * PS - Player State
 	 */
-	ATimberPlayableCharacter* PCh = Cast<ATimberPlayableCharacter>(GetOwner());
+	ADieRobotPlayableCharacter* PCh = Cast<ADieRobotPlayableCharacter>(GetOwner());
 	if(PCh)
 	{
 		//UE_LOG(LogTemp, Warning, TEXT("Inventory Manager Component - Player Character Loaded from GetOwner()"));
-		ATimberPlayerController* PC = Cast<ATimberPlayerController>(PCh->GetController());
+		ADieRobotPlayerController* PC = Cast<ADieRobotPlayerController>(PCh->GetController());
 		if(PC)
 		{
 			//UE_LOG(LogTemp, Warning, TEXT("Inventory Manager Component - Player Controller Loaded."));

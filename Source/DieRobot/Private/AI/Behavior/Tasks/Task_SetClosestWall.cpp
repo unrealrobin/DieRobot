@@ -3,12 +3,12 @@
 
 #include "AI/Behavior/Tasks/Task_SetClosestWall.h"
 
-#include "AI/TimberAiControllerBase.h"
+#include "AI/DieRobotAiControllerBase.h"
 #include "BehaviorTree/BlackboardComponent.h"
-#include "BuildSystem/BuildingComponents/TimberHorizontalBuildingComponent.h"
-#include "BuildSystem/buildingComponents/TimberVerticalBuildingComponent.h"
+#include "BuildSystem/BuildingComponents/DieRobotHorizontalBuildingComponent.h"
+#include "BuildSystem/buildingComponents/DieRobotVerticalBuildingComponent.h"
 #include "BuildSystem/Ramps/RampBase.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 UTask_SetClosestWall::UTask_SetClosestWall()
@@ -20,10 +20,10 @@ EBTNodeResult::Type UTask_SetClosestWall::ExecuteTask(UBehaviorTreeComponent& Ow
 {
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 
-	ATimberAiControllerBase* AIControllerBase = Cast<ATimberAiControllerBase>(OwnerComp.GetAIOwner());
+	ADieRobotAiControllerBase* AIControllerBase = Cast<ADieRobotAiControllerBase>(OwnerComp.GetAIOwner());
 	if (!AIControllerBase) return EBTNodeResult::Failed;
 
-	ATimberEnemyCharacter* AiEnemyCharacter = Cast<ATimberEnemyCharacter>(AIControllerBase->GetPawn());
+	ADieRobotEnemyCharacter* AiEnemyCharacter = Cast<ADieRobotEnemyCharacter>(AIControllerBase->GetPawn());
 	if (!AiEnemyCharacter) return EBTNodeResult::Failed;
 
 	UBlackboardComponent* BlackboardComponent = OwnerComp.GetBlackboardComponent();
@@ -64,7 +64,7 @@ EBTNodeResult::Type UTask_SetClosestWall::ExecuteTask(UBehaviorTreeComponent& Ow
 				if (HitBuildable->BuildableType != EBuildableType::Environment)
 				{
 					//If this hit Returns A Wall Base Class or a Ramp Base Class
-					if (Cast<ATimberVerticalBuildingComponent>(HitBuildable) || Cast<ARampBase>(HitBuildable))
+					if (Cast<ADieRobotVerticalBuildingComponent>(HitBuildable) || Cast<ARampBase>(HitBuildable))
 					{
 						float Distance = FVector::Dist(AiEnemyCharacter->GetActorLocation(), HitBuildable->GetActorLocation());
 						if (Distance < MatchStruct.Distance)

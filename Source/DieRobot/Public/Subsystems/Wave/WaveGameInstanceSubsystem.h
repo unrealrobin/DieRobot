@@ -7,7 +7,7 @@
 #include "WaveGameInstanceSubsystem.generated.h"
 
 class AGarageDoorBase;
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 
 UENUM(BlueprintType)
 enum class EWaveStopReason : uint8
@@ -113,7 +113,7 @@ public:
 	void SuccessfulWaveEnd();
 	
 	UPROPERTY()
-	TArray<TSubclassOf<ATimberEnemyCharacter>> EnemiesToSpawn;
+	TArray<TSubclassOf<ADieRobotEnemyCharacter>> EnemiesToSpawn;
 	UFUNCTION()
 	void ShuffleEnemiesToSpawn();
 	UPROPERTY()
@@ -133,16 +133,16 @@ public:
 	
 	/*Enemies*/
 	UPROPERTY()
-	TArray<ATimberEnemyCharacter*> SpawnedEnemies;
+	TArray<ADieRobotEnemyCharacter*> SpawnedEnemies;
 	UFUNCTION()
-	void CheckArrayForEnemy(ATimberEnemyCharacter* Enemy);
+	void CheckArrayForEnemy(ADieRobotEnemyCharacter* Enemy);
 	
 	UFUNCTION()
 	void ResetWaveEnemies();
 	UPROPERTY()
 	bool BossSpawned = false;
 	UFUNCTION()
-	void CheckEnemiesForWeapons(ATimberEnemyCharacter* Enemy);
+	void CheckEnemiesForWeapons(ADieRobotEnemyCharacter* Enemy);
 	
 	/*Wave Iteration*/
 	UPROPERTY()
@@ -180,7 +180,7 @@ public:
 	void ResetWaveSubsystem();
 
 private:
-	void AddClassToEnemiesToSpawnArray(TSubclassOf<ATimberEnemyCharacter> ClassToAdd, int NumberToAdd);
+	void AddClassToEnemiesToSpawnArray(TSubclassOf<ADieRobotEnemyCharacter> ClassToAdd, int NumberToAdd);
 	int GetNumberOfEnemiesToSpawnPerGroup(); //Scales Number of enemies to spawn per "Grouping" by wave Number.
 };
 

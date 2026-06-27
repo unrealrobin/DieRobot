@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BuildSystem/BuildingComponents/TimberBuildingComponentBase.h"
+#include "BuildSystem/BuildingComponents/DieRobotBuildingComponentBase.h"
 #include "Components/Inventory/InventoryObject.h"
 #include "GameFramework/SaveGame.h"
 #include "SaveLoadStruct.generated.h"

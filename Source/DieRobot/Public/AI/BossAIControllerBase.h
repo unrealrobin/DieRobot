@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "TimberAiControllerBase.h"
+#include "DieRobotAiControllerBase.h"
 #include "BossAIControllerBase.generated.h"
 
 UCLASS()
-class DIEROBOT_API ABossAIControllerBase : public ATimberAiControllerBase
+class DIEROBOT_API ABossAIControllerBase : public ADieRobotAiControllerBase
 {
 	GENERATED_BODY()
 

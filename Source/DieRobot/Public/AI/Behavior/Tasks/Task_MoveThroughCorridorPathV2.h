@@ -12,9 +12,9 @@
 #include "Task_MoveThroughCorridorPathV2.generated.h"
 
 class UPathFollowingComponent;
-class ATimberAiControllerBase;
+class ADieRobotAiControllerBase;
 struct FPathFollowingResult;
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 class ABuildableBase;
 
 USTRUCT(BlueprintType)
@@ -107,13 +107,13 @@ private:
     UBehaviorTreeComponent* BehaviorTreeComponent = nullptr;
 
     UPROPERTY()
-    ATimberAiControllerBase* AIControllerBase = nullptr;
+    ADieRobotAiControllerBase* AIControllerBase = nullptr;
 
     UPROPERTY()
     UPathFollowingComponent* PathFollowingComponent = nullptr;
 
     UPROPERTY()
-    ATimberEnemyCharacter* EnemyCharacter = nullptr;
+    ADieRobotEnemyCharacter* EnemyCharacter = nullptr;
 
     // Path state
     TArray<FVector> CorridorPathPoints;

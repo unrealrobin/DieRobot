@@ -8,7 +8,7 @@
 #include "NavigationHelperComponent.generated.h"
 
 class ABuildableBase;
-class ATimberCharacterBase;
+class ADieRobotCharacterBase;
 
 UENUM(BlueprintType)
 enum class EPathFailureReason : uint8

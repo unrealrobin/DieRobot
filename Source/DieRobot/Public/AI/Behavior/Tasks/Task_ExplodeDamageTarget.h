@@ -6,7 +6,7 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "Task_ExplodeDamageTarget.generated.h"
 
-class ATimberEnemyCharacter;
+class ADieRobotEnemyCharacter;
 /**
  * 
  */
@@ -33,7 +33,7 @@ public:
 	FBlackboardKeySelector SelfActorKey;
 
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Blackboard")
-	ATimberEnemyCharacter* SelfEnemyCharacter = nullptr;
+	ADieRobotEnemyCharacter* SelfEnemyCharacter = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Blackboard")
 	FBlackboardKeySelector TargetKey;
@@ -50,8 +50,8 @@ public:
 private:
 
 	UFUNCTION()
-	void HandleDamage(AActor* ActorToDamage, ATimberEnemyCharacter* SelfActorEnemy);
+	void HandleDamage(AActor* ActorToDamage, ADieRobotEnemyCharacter* SelfActorEnemy);
 
 	UFUNCTION()
-	void HandleCharacterDestruction(ATimberEnemyCharacter* ActorForDestruction);
+	void HandleCharacterDestruction(ADieRobotEnemyCharacter* ActorForDestruction);
 };

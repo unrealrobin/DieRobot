@@ -4,7 +4,7 @@
 #include "Subsystems/SynergySystem/SynergySystem.h"
 
 #include "AssetRegistry/AssetRegistryModule.h"
-#include "Character/Enemies/TimberEnemyCharacter.h"
+#include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/StatusEffect/StatusEffectHandlerComponent.h"
 #include "Data/DataAssets/StatusEffects/StatusEffectBase.h"
 #include "Synergy/EffectLogic/EffectAbilityHandlerBase.h"

@@ -6,7 +6,7 @@
 #include "AI/BossAIControllerBase.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BuildSystem/BuildableBase.h"
-#include "BuildSystem/BuildingComponents/TimberBuildingComponentBase.h"
+#include "BuildSystem/BuildingComponents/DieRobotBuildingComponentBase.h"
 #include "BuildSystem/Ramps/RampBase.h"
 #include "Character/Enemies/FloaterDrones.h"
 #include "Components/CapsuleComponent.h"
@@ -282,7 +282,7 @@ void ABossLola::DemolishBuildable()
 		UE_LOG(LogTemp, Warning, TEXT("Lola - Sweep Hit Actor Found. Demolishing Buildable."));
 		ABuildableBase* Buildable = Cast<ABuildableBase>(SweepHitActor);
 		float BuildableHealth = Buildable->ComponentDurability;
-		if (ATimberBuildingComponentBase* WallorFloor = Cast<ATimberBuildingComponentBase>(SweepHitActor))
+		if (ADieRobotBuildingComponentBase* WallorFloor = Cast<ADieRobotBuildingComponentBase>(SweepHitActor))
 		{
 			WallorFloor->BuildingComponentTakeDamage(BuildableHealth, this);
 			SweepHitActor = nullptr;

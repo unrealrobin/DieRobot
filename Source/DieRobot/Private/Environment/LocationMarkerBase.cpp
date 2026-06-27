@@ -3,7 +3,7 @@
 
 #include "Environment/LocationMarkerBase.h"
 
-#include "Character/TimberPlayableCharacter.h"
+#include "Character/DieRobotPlayableCharacter.h"
 #include "States/DieRobotGameStateBase.h"
 
 
@@ -37,7 +37,7 @@ void ALocationMarkerBase::HandleLocationOverlap(
 	UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
 	bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (Cast<ATimberPlayableCharacter>(OtherActor))
+	if (Cast<ADieRobotPlayableCharacter>(OtherActor))
 	{
 		//Send Broadcast to Game System to Increment the Tutorial State
 
