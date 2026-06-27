@@ -1,6 +1,6 @@
 ﻿url: "https://unrealrobin.github.io"
 title: Robin Lifshitz - Die Robot - Feature Breakdowns
-baseurl: "/timbermvp"
+baseurl: "/DieRobot"
 markdown: kramdown
 kramdown:
   input: GFM

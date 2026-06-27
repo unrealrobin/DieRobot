@@ -26,7 +26,7 @@ This portfolio highlights the **three core gameplay systems** I’m most proud o
 - **Team Size:** Solo Developer
 - **Game Website:** [www.paracosm.gg](https://www.paracosm.gg)
 - **Steam:** [Steam Page](https://store.steampowered.com/app/3704770/Die_Robot/)
-- **Github:** [Github Repo](https://github.com/unrealrobin/timbermvp)
+- **Github:** [Github Repo](https://github.com/unrealrobin/DieRobot)
 
 ![Gameplay Screenshot](./Portfolio/Images/GameplayScreenshot.png)
 
@@ -68,7 +68,7 @@ I’m a gameplay programmer passionate about **system design and combat mechanic
 Looking for **gameplay engineering & technical design roles** in Unreal Engine projects.
 
 - [LinkedIn](https://linkedin.com/in/robinlifshitz)
-- [GitHub Repo](https://github.com/unrealrobin/timbermvp)
+- [GitHub Repo](https://github.com/unrealrobin/DieRobot)
 
 ---
 

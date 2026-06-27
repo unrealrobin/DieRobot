@@ -4,7 +4,7 @@ Description: Shows Input flow for Charged Inputs on a Multi-Input Action Input.
 ```mermaid
 sequenceDiagram
     actor Player
-    participant Controller as ATimberPlayerController
+    participant Controller as ADieRobotPlayerController
     participant Combat as UCombatComponent
     participant Weapon as EquippedWeapon
     participant Ability as UAbilityBase
