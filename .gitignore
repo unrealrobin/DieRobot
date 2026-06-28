@@ -58,3 +58,7 @@ Build/*
 #Keys Etc.
 LocalEngine.ini
 .sentry-native/
+
+# Third-party plugins: reinstalled per engine version; kept out of source control to limit repo/LFS bloat
+/Plugins/5.6_CollisionCommander_1.3/
+/Plugins/sentry-unreal-1.0.0-beta.7-engine5.4-github/
