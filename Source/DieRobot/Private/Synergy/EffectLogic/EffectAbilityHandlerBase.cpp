@@ -6,6 +6,7 @@
 #include "Character/Enemies/DieRobotEnemyCharacter.h"
 #include "Components/StatusEffect/StatusEffectHandlerComponent.h"
 #include "Data/DataAssets/StatusEffects/StatusEffectBase.h"
+#include "Engine/OverlapResult.h"
 
 UEffectAbilityHandlerBase::UEffectAbilityHandlerBase()
 {

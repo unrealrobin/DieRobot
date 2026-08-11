@@ -134,8 +134,6 @@ protected:
 
 private:
 
-	//CI/CD
-	void TestSentry();
 
 	void InitializeSaveLoadSession();
 	

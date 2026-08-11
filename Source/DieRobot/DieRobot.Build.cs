@@ -26,7 +26,6 @@ public class DieRobot : ModuleRules
 			"OnlineServicesCommon",
 			"OnlineServicesEOS",
 			"NavigationSystem",
-			"Sentry",
 			"ModelViewViewModel"
 		});
 	}

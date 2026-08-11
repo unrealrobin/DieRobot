@@ -15,7 +15,6 @@
 #include "Subsystems/Music/UMusicManagerSubsystem.h"
 #include "Subsystems/SaveLoad/SaveLoadSubsystem.h"
 #include "Subsystems/Wave/WaveGameInstanceSubsystem.h"
-#include "SentrySubsystem.h"
 
 class UDialogueManager;
 class UBuildingComponentPanel;
@@ -256,13 +255,6 @@ void ADieRobotGameModeBase::PlayAttackMusic()
 	}
 }
 
-void ADieRobotGameModeBase::TestSentry()
-{
-	//UGameInstance* GameInstance = GetGameInstance();
-	USentrySubsystem* SentrySubsystem = GEngine->GetEngineSubsystem<USentrySubsystem>();
-	SentrySubsystem->CaptureMessage(TEXT("Captured Message from Die Robot"));
-	
-}
 
 void ADieRobotGameModeBase::InitializeSaveLoadSession()
 {

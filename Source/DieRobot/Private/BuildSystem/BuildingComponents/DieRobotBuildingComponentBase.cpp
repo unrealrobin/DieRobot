@@ -121,7 +121,7 @@ void ADieRobotBuildingComponentBase::CreateQuadrantComponents()
 void ADieRobotBuildingComponentBase::BuildingComponentTakeDamage(float AmountOfDamage, AActor* DamagingActor)
 {
 	//Who hit what for how much?
-	UE_LOG(LogTemp, Warning, TEXT("%lS took %f damage from %s."), *GetName(), AmountOfDamage, *DamagingActor->GetName());
+	UE_LOG(LogTemp, Warning, TEXT("%s took %f damage from %s."), *GetName(), AmountOfDamage, *DamagingActor->GetName());
 	
 	ComponentDurability = ComponentDurability - AmountOfDamage;
 
