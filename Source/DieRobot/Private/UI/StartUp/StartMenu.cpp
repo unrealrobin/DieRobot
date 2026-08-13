@@ -5,6 +5,7 @@
 
 #include "Blueprint/WidgetTree.h"
 #include "Components/VerticalBox.h"
+#include "Engine/GameInstance.h"
 #include "Subsystems/Online/Login.h"
 #include "UI/StartUp/DRLoadMenu.h"
 
@@ -46,7 +47,7 @@ void UStartMenu::HideStartMenuSelections()
 }
 
 void UStartMenu::CloseLoadMenu()
-{
+{		
 	if (LoadMenuWidgetRef)
 	{
 		LoadMenuWidgetRef->OnMainMenuButtonClickedDelegate.RemoveDynamic(this, &UStartMenu::CloseLoadMenu);

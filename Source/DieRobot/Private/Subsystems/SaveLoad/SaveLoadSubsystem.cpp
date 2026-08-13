@@ -81,6 +81,16 @@ void USaveLoadSubsystem::SaveBuildableData(USaveLoadStruct* SaveGameInstance)
 {
 	if (SaveGameInstance)
 	{
+		/*
+		 * SaveCurrentGame() loads the existing save into SaveGameInstance before calling this,
+		 * so the array arrives already populated from the previous save. Without clearing it,
+		 * every save appends the current world's buildables on top of the previous contents,
+		 * and because InitializeSaveLoadSession() does LoadGame() -> SaveCurrentGame() on every
+		 * entry into the level, the array DOUBLES each time. Nine buildables became 20,736
+		 * entries in eight level loads, which then froze the editor on load.
+		 */
+		SaveGameInstance->BuildingComponentsArray.Empty();
+
 		TArray<AActor*> CurrentBuildingComponents;
 		UGameplayStatics::GetAllActorsOfClass(
 			GetWorld(), ABuildableBase::StaticClass(), CurrentBuildingComponents);
@@ -245,6 +255,10 @@ void USaveLoadSubsystem::SavePlayerData(USaveLoadStruct* SaveGameInstance)
 			 /*Save Players Completed Missions*/
 			if (Character->MissionDeliveryComponent)
 			{
+				//Same reason as BuildingComponentsArray above: the array arrives populated from
+				//the previous save, so appending without clearing accumulates duplicates.
+				SaveGameInstance->PlayerData.CompletedMissionList.Empty();
+
 				for (FGuid MissionGuid : Character->MissionDeliveryComponent->CompletedMissionGuids)
 				{
 					SaveGameInstance->PlayerData.CompletedMissionList.Add(MissionGuid);
