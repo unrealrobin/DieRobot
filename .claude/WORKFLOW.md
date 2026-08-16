@@ -178,6 +178,32 @@ Invoke the **`test-writer`** agent on the code that just landed.
 > tests you just wrote pass. A change to a system with no tests is the opportunity to give
 > it some, not a reason to skip.
 
+### Running them — MCP first, headless as fallback
+
+With the editor open and the Unreal MCP server running (DIE-53), run tests **in the live
+editor** via the `AutomationTestToolset`:
+
+```
+DiscoverTests  →  ListTests(nameFilter: "DieRobot.Settled")  →  RunTests(testNames: [...])
+                  →  GetTestResults
+```
+
+Results come back per-test with `state`, `duration`, `errors` and `warnings`. This is the
+fast path: no editor shutdown, no cold start.
+
+Two things to know about that toolset: `DiscoverTests` must run once per session before
+anything else works, and `ListTests` requires `nameFilter` and `tagFilter` to be present
+even when empty — the schema marks them required despite describing them as optional.
+
+The headless command remains the fallback, and is what CI will use:
+
+```powershell
+& "D:\UnrealEngine\UE_5.8\Engine\Binaries\Win64\UnrealEditor-Cmd.exe" "C:\Users\Robin Lifshitz\Documents\Unreal Projects\DieRobot\DieRobot.uproject" -ExecCmds="Automation RunTests DieRobot.Settled" -unattended -nopause -nosplash -testexit="Automation Test Queue Empty"
+```
+
+**Report the real result either way.** Never claim a test passes without the output in
+front of you.
+
 **Exemption:** documentation-only changes and the EXP lane skip this step.
 
 **Content-lane note:** a Blueprint or DataAsset change is usually not unit-testable. Its

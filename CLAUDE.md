@@ -186,6 +186,43 @@ fire.
 
 ---
 
+## Unreal MCP
+
+The editor hosts an MCP server (UE 5.8, Experimental). `.mcp.json` points Claude Code at
+`http://127.0.0.1:8000/mcp`, so **with the editor open you get live editor tools natively** —
+no headless round-trips.
+
+`bEnableToolSearch` is on, so `tools/list` returns only three meta-tools:
+`list_toolsets`, `describe_toolset`, `call_tool`. Everything else is discovered through
+them. A short tool list is the designed behavior, not a failure.
+
+What's worth knowing is registered:
+
+| Toolset | Use |
+|---|---|
+| `AutomationTestToolset` | Run the Settled suite in-editor — WORKFLOW L.2's fast path |
+| `editor_toolset…ObjectTools` | `list_properties` / `get_properties` / `set_properties` on live objects |
+| `editor_toolset…DataAssetTools`, `DataTableTools` | The DIE-13 surface |
+| `EditorToolset.EditorAppToolset` | `StartPIE`, `StopPIE`, `CaptureViewport`, `SearchCVars` |
+| `editor_toolset…SceneTools` | Place and remove actors in the loaded level |
+| `EditorToolset.LogsToolset` | Read the output log, set category verbosity |
+| `GASToolsets` | AttributeSet, AbilitySystemInspector, GameplayCue — for the GAS Migration |
+| `aimodule_toolset…BehaviorTreeTools` | Inspect BT assets — for the Pathing Rework |
+| `GameplayTagsToolset` | Read and manage the tag vocabulary |
+
+**Live introspection is the point.** It reads what is actually loaded, not what is on disk —
+which is the only way to verify order-dependent runtime state like DIE-13.
+
+> **Security.** There is **no authentication layer**. It binds to loopback and rejects
+> non-loopback `Origin` headers, and that is the entire protection. `bAutoStartServer=True`
+> lives in `Saved/Config/WindowsEditor/EditorPerProjectUserSettings.ini`, which is
+> gitignored — **deliberately not in committed project config**, because this repo is public
+> and an auto-starting unauthenticated control port must not be the default for a clone.
+> Both plugins are `TargetAllowList: ["Editor"]` and can never reach a shipping build.
+
+**Not available:** `LiveCodingToolset` ships on disk but is absent from `AllToolsets`'
+dependency list, so it never registers. The editor still has to be **closed to compile**.
+
 ## Documentation
 
 The design vault lives in Obsidian at **`~/Documents/RLOV/DieRobot/`**. It is the source of
