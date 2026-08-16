@@ -27,6 +27,17 @@ DerivedDataCache/
 # Ignore Rider IDE files
 .idea/
 
+# Claude Code worktrees live inside .claude/ — the rest of .claude/ (WORKFLOW.md,
+# rules/, agents/) is deliberately tracked. Each worktree holds a .git file, so
+# without this git treats it as a nested repo and tries to record a gitlink.
+.claude/worktrees/
+
+# Per-user scratch content: EXP-lane assets, throwaway maps, tuning variants.
+# Ignored so it costs nothing in LFS, which is cumulative and permanent.
+# Committed test fixtures do NOT go here — functional test maps live in
+# Content/Maps/Tests/ so CI can run them.
+Content/Developers/
+
 # Ignore macOS specific files
 .DS_Store
 
