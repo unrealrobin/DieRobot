@@ -66,7 +66,7 @@ That's a task, not an intent. Intent survives even if the implementation approac
 completely.
 
 **Where a design pillar or decision applies, name it.** `Serves P1.` or `Violates D4 —
-this issue removes the violation.` The vault's `Pillars & Decisions` is the reference, and an
+this issue removes the violation.` The vault's `dierobot/design/pillars-and-decisions.md` is the reference, and an
 issue that connects to it is one someone can prioritise.
 
 ---
@@ -206,7 +206,7 @@ a single `save_issue` call at task start. Use state IDs, not names.
 
 ## Design questions are issues too
 
-An open design question — the kind tracked in the vault's `Open Questions & Graveyard` — gets
+An open design question — the kind tracked in the vault's `dierobot/design/open-questions-and-graveyard.md` — gets
 a Linear issue when an **experiment** is going to answer it, labelled `Design`.
 
 Its `Success Criteria` is not code. It is *the question is answered and the answer is written

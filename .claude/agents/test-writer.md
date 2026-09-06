@@ -139,7 +139,7 @@ Be honest about the boundary rather than writing a test that only appears to cov
 - **Anything needing rendering, VFX, or animation to be observed** — a screenshot comparison
   is a Lane 2 concern, not a unit test.
 - **Feel, pacing, and balance** — these are design questions answered by playing, and the
-  vault's Open Questions is where they live.
+  vault's `dierobot/design/open-questions-and-graveyard.md` is where they live.
 - **Navmesh generation and pathing quality** — needs a built world; possible, but it is a
   fixture investment to decide on deliberately.
 

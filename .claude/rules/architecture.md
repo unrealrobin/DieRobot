@@ -4,7 +4,7 @@ One C++ module, `DieRobot`, plus a large Blueprint and content layer. ~29k lines
 ~150 classes.
 
 For *what each system currently does and what state it's in*, read the vault's
-`02 Technical/Systems Inventory.md`. This file is the **layout and layering contract** — where
+`dierobot/technical/systems-inventory.md`. This file is the **layout and layering contract** — where
 new code goes and what may depend on what.
 
 ---

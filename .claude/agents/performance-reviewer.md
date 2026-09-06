@@ -27,7 +27,7 @@ should?) and **strategic** (is a cost growing in a way the current design won't 
 `.claude/rules/architecture.md` (layer order, subsystem lifetimes). Read them before
 auditing. If a rule is unclear or under-specified, that is a finding — flag it.
 
-The vault's `02 Technical/Systems Inventory.md` records which systems are already known to be
+The vault's `dierobot/technical/systems-inventory.md` records which systems are already known to be
 hot and why. Read it rather than rediscovering.
 
 ## Tactical scope
@@ -113,7 +113,7 @@ Raise an **EXPAND** finding when you see:
 - The absence of measurement where a guess is being made
 
 EXPAND findings do not block. They are recorded, carried into WORKFLOW C.5, and usually
-become a vault Decision Log entry or a new Linear issue.
+become a vault decision (`dierobot/decisions/`) or a new Linear issue.
 
 ## Measurement
 

@@ -89,24 +89,25 @@ If already read in this session, skip.
 
 ## S.2 — Read the relevant vault docs
 
-The vault at `~/Documents/RLOV/DieRobot/` is the source of truth for *how Die Robot is
-supposed to work*. It is not in git and will not appear in any repo search — you must read
-it deliberately.
+The vault — ParacosmDocs at `~/ParacosmDocs`, area `dierobot/` (clone
+`unrealrobin/paracosm-docs` next to this repo if that path doesn't exist) — is the source
+of truth for *how Die Robot is supposed to work*. It is its own repo and will not appear
+in any search of this one — you must read it deliberately.
 
-**Always, every session:** `02 Technical/Current State.md`. It carries the engine paths, the
+**Always, every session:** `dierobot/STATE.md`. It carries the engine paths, the
 toolchain traps, the open bug list, and the gotchas that have already cost hours. Skipping
 it is how the same hour gets burned twice.
 
 Then, by area:
 
-| If the task touches... | Read in vault... |
+| If the task touches... | Read in the vault... |
 |---|---|
-| Any system's real state, or a bug | Systems Inventory |
-| Enemy behavior, wave pacing, player verbs, difficulty | Pillars & Decisions |
-| Something the design hasn't settled | Open Questions & Graveyard |
-| Why a past technical choice was made | Decision Log |
-| Build, CI, test infrastructure | Setup Brief |
-| A term you don't recognize | Glossary |
+| Any system's real state, or a bug | `dierobot/technical/systems-inventory.md` |
+| Enemy behavior, wave pacing, player verbs, difficulty | `dierobot/design/pillars-and-decisions.md` |
+| Something the design hasn't settled | `dierobot/design/open-questions-and-graveyard.md` |
+| Why a past technical choice was made | `dierobot/decisions/` — `INDEX.md` lists all |
+| Build, CI, test infrastructure | `dierobot/reference/setup-brief.md` |
+| A term you don't recognize | `dierobot/reference/glossary.md` |
 
 The plan you propose must be consistent with what the vault describes. **Where it conflicts,
 say so out loud rather than silently picking one** — a design decision the code violates is
